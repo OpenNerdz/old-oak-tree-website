@@ -1,7 +1,7 @@
 # Old Oak Tree website redesign
 
 Redesign concept for The Old Oak Tree, South Kilvington, Thirsk (oldoaktreethirsk.co.uk), built 21 October 2026
-from the pub's own content and photographs. Live preview: https://claude.ai/artifact/1NKdQcAc49jVhXEHg8qt7w
+from the pub's own content and photographs. Live preview: https://opennerdz.github.io/old-oak-tree-website/
 
 ## What is here
 
