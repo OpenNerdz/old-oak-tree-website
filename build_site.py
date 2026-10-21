@@ -14,6 +14,11 @@ FACEBOOK = "https://www.facebook.com/pages/Old-Oak-Tree/169152219800632"
 TWITTER = "https://twitter.com/LauretteNick"
 TRIPADVISOR = "https://www.tripadvisor.co.uk/Restaurant_Review-g499612-d720778-Reviews-The_Old_Oak_Tree-Thirsk_North_Yorkshire_England.html"
 NOTICE = "Closed 9 to 15 November 2026 and 4 to 10 January 2027."
+# Where the site is served from. Change this (and the form address below) when it moves to the pub's own domain.
+BASE_URL = "https://opennerdz.github.io/old-oak-tree-website/"
+# Enquiry form delivery (formsubmit.co: no account needed; the first submission sends an activation email to this
+# address, which must be clicked once). Switch to the pub's address at launch and activate again.
+FORM_TO = "bradjhosk@outlook.com"
 
 FONTS = "https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap"
 
@@ -22,7 +27,7 @@ CSS = r"""
    brass for labels and rules, so the photographs carry the colour. */
 :root{
   --bg:#f4eee2;--surface:#fbf8f2;--surface-2:#eae1cf;--ink:#2a1d17;--muted:#6b5b50;--line:#d8cbb3;
-  --brand:#4b1118;--brand-hover:#601722;--on-brand:#f8f1e7;--brass:#8c6b3e;--brass-soft:#ebdfc6;
+  --brand:#4b1118;--brand-hover:#601722;--on-brand:#f8f1e7;--brass:#765a2f;--brass-soft:#ebdfc6;
   --shade:rgba(22,10,6,.58);--focus:#b8862b;
   --font-display:'Cinzel',Georgia,'Times New Roman',serif;
   --font-head:'Libre Caslon Text',Georgia,'Times New Roman',serif;
@@ -259,7 +264,7 @@ JS = r"""
   var t=document.querySelector('.menu-toggle'),n=document.querySelector('.nav');
   if(t&&n){t.addEventListener('click',function(){var o=n.classList.toggle('open');t.setAttribute('aria-expanded',o?'true':'false');});}
   var f=document.querySelector('form.enquiry');
-  if(f){f.addEventListener('submit',function(e){e.preventDefault();var d=document.getElementById('form-done');if(d){d.hidden=false;d.focus();}f.querySelector('button').disabled=true;});}
+  if(f){f.addEventListener('submit',function(){var b=f.querySelector('button[type=submit]');if(b){b.disabled=true;b.textContent='Sending…';}});}
 })();
 """
 
@@ -300,11 +305,33 @@ def footer():
 </footer>
 <script>{JS}</script>"""
 
-def page(fname, title, body, current=None, desc=""):
+SCHEMA = {
+  "@context": "https://schema.org", "@type": ["BarOrPub", "Restaurant", "LodgingBusiness"],
+  "name": "Old Oak Tree", "alternateName": "The Old Oak Tree, South Kilvington",
+  "description": "Family-run freehouse in South Kilvington near Thirsk with home-cooked food, real ales, Sunday lunch and five en-suite rooms.",
+  "url": BASE_URL, "telephone": "+44 1845 523276", "email": EMAIL, "image": BASE_URL + "images/share.jpg",
+  "address": {"@type": "PostalAddress", "streetAddress": "Beck Lane, South Kilvington", "addressLocality": "Thirsk", "addressRegion": "North Yorkshire", "postalCode": "YO7 2NL", "addressCountry": "GB"},
+  "servesCuisine": "British", "priceRange": "££", "hasMenu": BASE_URL + "menu.html", "acceptsReservations": "True",
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "12:00", "closes": "14:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "17:00", "closes": "20:30"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "12:00", "closes": "19:30"}],
+  "sameAs": [FACEBOOK, TWITTER, TRIPADVISOR],
+  "petsAllowed": "True", "numberOfRooms": 5,
+}
+
+def page(fname, title, body, current=None, desc="", schema=False, noindex=False, absolute=False):
     """Full HTML document. Also returns the body-only variant used for the artifact's main page."""
-    head_bits = f"""<title>{title}</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+    url = BASE_URL + ("" if fname == "index.html" else fname)
+    head_bits = f"""{('<base href="' + BASE_URL + '">') if absolute else ''}<title>{title}</title>
+{'<meta name="robots" content="noindex">' if noindex else ''}<meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="{html.escape(desc)}">
+<link rel="canonical" href="{url}">
+<meta name="theme-color" content="#4b1118">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="icon" href="favicon.png" type="image/png" sizes="64x64"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Old Oak Tree, Thirsk"><meta property="og:title" content="{html.escape(title)}"><meta property="og:description" content="{html.escape(desc)}"><meta property="og:url" content="{url}"><meta property="og:image" content="{BASE_URL}images/share.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="The Old Oak Tree pub, South Kilvington"><meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{html.escape(title)}"><meta name="twitter:description" content="{html.escape(desc)}"><meta name="twitter:image" content="{BASE_URL}images/share.jpg">
+{('<script type="application/ld+json">' + json.dumps(SCHEMA) + '</script>') if schema else ''}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
 <style>{CSS}</style>"""
@@ -532,7 +559,8 @@ def menu_page():
 {page_head("Served every day except Sunday lunch", "Our menu", "images/specials-board.jpg", "The specials chalkboard listing the day's dishes")}
 <section class="band"><div class="wrap">
   <div class="menu-intro"><div class="measure"><p class="lede">Classic pub favourites, home-cooked. In addition to the everyday menu below we have ever-changing specials boards, and sandwiches and light bites over lunch.</p>
-    <p class="key"><span class="tag" style="margin-left:0">GF</span> gluten free &nbsp; <span class="tag" style="margin-left:0">V</span> vegetarian &nbsp; <span class="tag" style="margin-left:0">Vegan</span> vegan. Please tell us about any allergies when you order.</p></div>
+    <p class="key"><span class="tag" style="margin-left:0">GF</span> gluten free &nbsp; <span class="tag" style="margin-left:0">V</span> vegetarian &nbsp; <span class="tag" style="margin-left:0">Vegan</span> vegan.</p>
+    <p class="key"><strong>Allergens:</strong> information on the fourteen major allergens is available for every dish. Please tell us about any allergy or intolerance before you order, and we will advise what is suitable.</p></div>
     <div class="served"><span class="k">Food served</span>Mon to Sat 12 to 2pm and 5 to 8.30pm<br>Sunday 12 to 7.30pm (see <a href="sunday-lunch.html">Sunday lunch</a>)<br><span class="k" style="margin-top:.6rem">Takeaway</span>Pre-order for collection during food service: phone {PHONE} with your order and collection time.</div></div>
   {sections}
   <section class="menu-section"><h2>Something sweet</h2><p class="note">Ask to see the sweets board. Chef's puddings change daily.</p></section>
@@ -554,6 +582,7 @@ def sunday_page():
   <section class="menu-section"><h2>Main courses<small>with farm-fresh vegetables</small></h2><ul class="items">{mains}</ul></section>
   <section class="menu-section"><h2>To finish</h2><ul class="items"><li class="item"><span class="n">{SUNDAY["pudding"]}</span></li></ul></section>
   <p class="key" style="margin-top:1.5rem">On Sundays the everyday menu is not served over lunch; it returns after 2.30pm until 7.30pm.</p>
+  <p class="key"><strong>Allergens:</strong> information on the fourteen major allergens is available for every dish. Please tell us about any allergy or intolerance before you order.</p>
 </div></section>"""
 
 def rooms_page():
@@ -638,7 +667,7 @@ def news_page(posts):
         out.append(f'<h2 id="y{y}">{y}</h2>')
         for p in ps:
             d = datetime.date.fromisoformat(p["date"][:10]).strftime("%-d %b %Y")
-            out.append(f'<article class="post"><time datetime="{p["date"][:10]}">{d}</time><div><h3>{p["title"]["rendered"]}</h3><div class="c">{clean(p["content"]["rendered"])}</div></div></article>')
+            out.append(f'<article class="post" id="{p["slug"]}"><time datetime="{p["date"][:10]}">{d}</time><div><h3>{p["title"]["rendered"]}</h3><div class="c">{clean(p["content"]["rendered"])}</div></div></article>')
     return f"""
 <section class="band"><div class="wrap">
   <p class="eyebrow">News and notices</p><h1 style="font-size:clamp(2rem,4vw,2.8rem)">What's on at the Oak Tree</h1>
@@ -667,16 +696,17 @@ def contact_page():
       <div class="social"><a href="{FACEBOOK}" target="_blank" rel="noopener">Facebook</a><a href="{TWITTER}" target="_blank" rel="noopener">Twitter</a><a href="{TRIPADVISOR}" target="_blank" rel="noopener">TripAdvisor</a></div>
     </div>
     <div>
-      <figure class="frame"><img src="images/map-directions.jpg" alt="Map: South Kilvington sits on the A61 just north of Thirsk, between the A19 and the racecourse" width="558" height="340"><figcaption style="padding:.6rem .8rem">We are here: north of Thirsk on the road in from the A19, with the racecourse on the west side of town.</figcaption></figure>
-      <form class="enquiry" style="margin-top:1.5rem" novalidate>
+      <div class="frame" style="aspect-ratio:4/3;max-width:100%"><iframe title="Map showing the Old Oak Tree, South Kilvington" src="https://www.google.com/maps?q=Old+Oak+Tree,+Beck+Lane,+South+Kilvington,+Thirsk+YO7+2NL&amp;z=13&amp;output=embed" style="width:100%;height:100%;border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+      <figure class="frame" style="margin-top:.75rem"><img src="images/map-directions.jpg" alt="Sketch map: South Kilvington sits on the road just north of Thirsk, between the A19 and the racecourse" width="558" height="340"><figcaption style="padding:.6rem .8rem">We are here: north of Thirsk on the road in from the A19, with the racecourse on the west side of town.</figcaption></figure>
+      <form class="enquiry" style="margin-top:1.5rem" action="https://formsubmit.co/{FORM_TO}" method="POST">
         <h2 style="font-size:1.35rem">Booking enquiry</h2>
-        <div class="row"><label>Name<input id="f-name" name="name" type="text" autocomplete="name" required></label><label>Phone<input id="f-phone" name="phone" type="tel" autocomplete="tel"></label></div>
+        <input type="hidden" name="_subject" value="Website enquiry: Old Oak Tree"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_next" value="{BASE_URL}thanks.html"><input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="row"><label>Name<input id="f-name" name="Name" type="text" autocomplete="name" required></label><label>Phone<input id="f-phone" name="Phone" type="tel" autocomplete="tel"></label></div>
         <label>Email<input id="f-email" name="email" type="email" autocomplete="email" required></label>
-        <div class="row"><label>Check-in date<input id="f-in" name="checkin" type="date"></label><label>Check-out date<input id="f-out" name="checkout" type="date"></label></div>
-        <label>Comments<textarea id="f-comments" name="comments" placeholder="Number of guests, dogs, a table as well as a room, anything else we should know"></textarea></label>
+        <div class="row"><label>Check-in date<input id="f-in" name="Check-in" type="date"></label><label>Check-out date<input id="f-out" name="Check-out" type="date"></label></div>
+        <label>Comments<textarea id="f-comments" name="Comments" placeholder="Number of guests, dogs, a table as well as a room, anything else we should know"></textarea></label>
         <button class="btn" type="submit">Send enquiry</button>
-        <p class="form-note">Enquiries are not confirmed bookings. For same-day tables please phone.</p>
-        <div class="form-done" id="form-done" hidden tabindex="-1">Thank you. This preview site does not send messages yet; please call {PHONE} or email {EMAIL} and we will get straight back to you.</div>
+        <p class="form-note">Enquiries are not confirmed bookings; we will reply by email or phone. For same-day tables please phone.</p>
       </form>
     </div>
   </div>
@@ -718,6 +748,39 @@ TERMS = """
 def legal_page(title, body):
     return f'<section class="band"><div class="wrap"><p class="eyebrow">Legal</p><h1 style="font-size:clamp(2rem,4vw,2.8rem)">{title}</h1><div class="prose" style="margin-top:1.5rem">{body}</div></div></section>'
 
+REDIRECTS = {  # old WordPress page paths -> new pages (posts are added from api.json at build time)
+  "our-menu": "menu.html", "sunday-lunch-thirsk": "sunday-lunch.html", "accommodation-thirsk": "rooms.html",
+  "restaurant-thirsk": "private-dining.html", "race-days-thirsk": "race-days.html", "local-info": "local-area.html",
+  "reservations": "contact.html", "contact": "contact.html", "contact/how-to-find-us": "contact.html", "how-to-find-us": "contact.html",
+  "booking-enquiry": "contact.html", "news": "news.html", "privacy-policy": "privacy.html", "terms-conditions": "terms.html",
+  "closure-nov-and-jan": "news.html", "closed-time-out": "news.html", "home-page": "index.html",
+}
+
+def redirect_stub(target):
+    url = BASE_URL + ("" if target == "index.html" else target)
+    return f"""<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url={url}">
+<link rel="canonical" href="{url}"><title>Old Oak Tree, Thirsk</title>
+<style>body{{font-family:Georgia,serif;background:#f4eee2;color:#2a1d17;text-align:center;padding:4rem 1rem}}a{{color:#4b1118}}</style></head>
+<body><p>This page has moved. <a href="{url}">Continue to the Old Oak Tree website</a>.</p><script>location.replace({json.dumps(url)})</script></body></html>
+"""
+
+def thanks_page():
+    return f"""<section class="band"><div class="wrap" style="max-width:720px"><p class="eyebrow">Thank you</p>
+<h1 style="font-size:clamp(2rem,4vw,2.8rem)">Your enquiry has been sent</h1>
+<div class="prose" style="margin-top:1.5rem"><p>Thank you for getting in touch. We will reply by email or phone as soon as we can, usually the same day.</p>
+<p>An enquiry is not a confirmed booking. If it is for today, please ring us on <a href="tel:{PHONE.replace(' ', '')}">{PHONE}</a>.</p>
+<p><a class="btn" href="index.html">Back to the home page</a></p></div></div></section>"""
+
+def not_found_page():
+    return f"""<section class="band"><div class="wrap" style="max-width:720px"><p class="eyebrow">Page not found</p>
+<h1 style="font-size:clamp(2rem,4vw,2.8rem)">We can't find that page</h1>
+<div class="prose" style="margin-top:1.5rem"><p>The address may be out of date. Everything on the site is one click away:</p>
+<ul><li><a href="menu.html">Menu</a> and <a href="sunday-lunch.html">Sunday lunch</a></li><li><a href="rooms.html">Rooms</a></li>
+<li><a href="private-dining.html">Private dining</a> and <a href="race-days.html">race days</a></li><li><a href="news.html">News and closures</a></li>
+<li><a href="contact.html">Contact, directions and booking enquiries</a></li></ul>
+<p>Or ring us on <a href="tel:{PHONE.replace(' ', '')}">{PHONE}</a>.</p></div></div></section>"""
+
 def main():
     api = json.load(open(API))
     pages = {
@@ -733,13 +796,25 @@ def main():
       "privacy.html": ("Privacy Policy · Old Oak Tree", legal_page("Privacy policy", PRIVACY), "How the Old Oak Tree uses information given through this website."),
       "terms.html": ("Terms & Conditions · Old Oak Tree", legal_page("Terms and conditions", TERMS), "Terms of use for the Old Oak Tree website."),
     }
-    art = os.path.join(HERE, "..", "artifact"); os.makedirs(art, exist_ok=True)
     for fname, (title, body, desc) in pages.items():
-        full, inner = page(fname, title, body, fname, desc)
+        full, _ = page(fname, title, body, fname, desc, schema=(fname == "index.html"))
         open(os.path.join(HERE, fname), "w").write(full)
-        if fname == "index.html":
-            open(os.path.join(art, "index.html"), "w").write(inner)
-    print("built", len(pages), "pages")
+    # Pages that search engines should not list: the form's thank-you page and the 404 (served at any depth, hence the <base>).
+    open(os.path.join(HERE, "thanks.html"), "w").write(page("thanks.html", "Thank you · Old Oak Tree", thanks_page(), "contact.html", "Enquiry sent.", noindex=True)[0])
+    open(os.path.join(HERE, "404.html"), "w").write(page("404.html", "Page not found · Old Oak Tree", not_found_page(), None, "Page not found.", noindex=True, absolute=True)[0])
+    # Old WordPress addresses keep working: each becomes a folder with an index.html that forwards to the new page.
+    redirects = dict(REDIRECTS)
+    for post in api["posts"]:
+        path = post["link"].split("//", 1)[-1].split("/", 1)[-1].strip("/")
+        if path and re.fullmatch(r"[a-z0-9/-]+", path): redirects[path] = "news.html#" + post["slug"]  # skip percent-encoded slugs
+    for old, target in redirects.items():
+        d = os.path.join(HERE, *old.split("/")); os.makedirs(d, exist_ok=True)
+        open(os.path.join(d, "index.html"), "w").write(redirect_stub(target))
+    today = datetime.date.today().isoformat()
+    urls = "".join(f"<url><loc>{BASE_URL + ('' if f == 'index.html' else f)}</loc><lastmod>{today}</lastmod></url>" for f in pages)
+    open(os.path.join(HERE, "sitemap.xml"), "w").write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>\n')
+    open(os.path.join(HERE, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nDisallow: /thanks.html\n\nSitemap: {BASE_URL}sitemap.xml\n")
+    print("built", len(pages) + 2, "pages,", len(redirects), "redirects")
 
 if __name__ == "__main__":
     main()

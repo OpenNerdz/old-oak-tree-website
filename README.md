@@ -33,3 +33,10 @@ from the pub's own content and photographs. Live preview: https://opennerdz.gith
 - Type: Cinzel for the wordmark (matching the inscriptional capitals in the pub's logo), Libre Caslon Text for headings,
   Source Sans 3 for text. All from Google Fonts.
 - Fully responsive, no horizontal scrolling at phone width, sticky header with a tap-to-call button.
+
+## Launch notes
+
+- **Enquiry form**: posts to formsubmit.co and lands in the address set by `FORM_TO` in `build_site.py`. The first submission to a new address triggers a one-time activation email to that address; click it once and the form is live. Switch `FORM_TO` to the pub's own address before handover and activate again.
+- **Moving to the pub's domain**: change `BASE_URL` in `build_site.py` and rebuild. Canonical links, share previews, the sitemap, the form's thank-you address and the old-address forwarders all follow it.
+- **Old addresses**: every page and news post path from the WordPress site has a folder with a forwarding `index.html`, so old links and search results keep working.
+- Build with `python3 -I build_site.py`; it rewrites every page, `404.html`, `thanks.html`, `sitemap.xml`, `robots.txt` and the forwarders.

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /thanks.html
+
+Sitemap: https://opennerdz.github.io/old-oak-tree-website/sitemap.xml

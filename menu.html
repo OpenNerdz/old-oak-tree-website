@@ -6,6 +6,12 @@
 <title>Menu · Old Oak Tree</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="The everyday menu at the Old Oak Tree, South Kilvington: starters, mains, burgers, parmos, grill, children&#x27;s menu, sandwiches and light bites.">
+<link rel="canonical" href="https://opennerdz.github.io/old-oak-tree-website/menu.html">
+<meta name="theme-color" content="#4b1118">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="icon" href="favicon.png" type="image/png" sizes="64x64"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Old Oak Tree, Thirsk"><meta property="og:title" content="Menu · Old Oak Tree"><meta property="og:description" content="The everyday menu at the Old Oak Tree, South Kilvington: starters, mains, burgers, parmos, grill, children&#x27;s menu, sandwiches and light bites."><meta property="og:url" content="https://opennerdz.github.io/old-oak-tree-website/menu.html"><meta property="og:image" content="https://opennerdz.github.io/old-oak-tree-website/images/share.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="The Old Oak Tree pub, South Kilvington"><meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Menu · Old Oak Tree"><meta name="twitter:description" content="The everyday menu at the Old Oak Tree, South Kilvington: starters, mains, burgers, parmos, grill, children&#x27;s menu, sandwiches and light bites."><meta name="twitter:image" content="https://opennerdz.github.io/old-oak-tree-website/images/share.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
 <style>
@@ -13,7 +19,7 @@
    brass for labels and rules, so the photographs carry the colour. */
 :root{
   --bg:#f4eee2;--surface:#fbf8f2;--surface-2:#eae1cf;--ink:#2a1d17;--muted:#6b5b50;--line:#d8cbb3;
-  --brand:#4b1118;--brand-hover:#601722;--on-brand:#f8f1e7;--brass:#8c6b3e;--brass-soft:#ebdfc6;
+  --brand:#4b1118;--brand-hover:#601722;--on-brand:#f8f1e7;--brass:#765a2f;--brass-soft:#ebdfc6;
   --shade:rgba(22,10,6,.58);--focus:#b8862b;
   --font-display:'Cinzel',Georgia,'Times New Roman',serif;
   --font-head:'Libre Caslon Text',Georgia,'Times New Roman',serif;
@@ -258,7 +264,8 @@ form.enquiry textarea{min-height:110px;resize:vertical}
 <section class="page-head"><div class="wrap"><div><p class="eyebrow">Served every day except Sunday lunch</p><h1>Our menu</h1></div><img src="images/specials-board.jpg" alt="The specials chalkboard listing the day's dishes" fetchpriority="high" width="527" height="210"></div></section>
 <section class="band"><div class="wrap">
   <div class="menu-intro"><div class="measure"><p class="lede">Classic pub favourites, home-cooked. In addition to the everyday menu below we have ever-changing specials boards, and sandwiches and light bites over lunch.</p>
-    <p class="key"><span class="tag" style="margin-left:0">GF</span> gluten free &nbsp; <span class="tag" style="margin-left:0">V</span> vegetarian &nbsp; <span class="tag" style="margin-left:0">Vegan</span> vegan. Please tell us about any allergies when you order.</p></div>
+    <p class="key"><span class="tag" style="margin-left:0">GF</span> gluten free &nbsp; <span class="tag" style="margin-left:0">V</span> vegetarian &nbsp; <span class="tag" style="margin-left:0">Vegan</span> vegan.</p>
+    <p class="key"><strong>Allergens:</strong> information on the fourteen major allergens is available for every dish. Please tell us about any allergy or intolerance before you order, and we will advise what is suitable.</p></div>
     <div class="served"><span class="k">Food served</span>Mon to Sat 12 to 2pm and 5 to 8.30pm<br>Sunday 12 to 7.30pm (see <a href="sunday-lunch.html">Sunday lunch</a>)<br><span class="k" style="margin-top:.6rem">Takeaway</span>Pre-order for collection during food service: phone 01845 523276 with your order and collection time.</div></div>
   
 <section class="menu-section" id="starters"><h2>Starters</h2><ul class="items"><li class="item"><span class="n">Homemade soup of the day with warm roll</span><span class="dots"></span><span class="p">£6.75</span></li>
@@ -353,7 +360,7 @@ form.enquiry textarea{min-height:110px;resize:vertical}
   var t=document.querySelector('.menu-toggle'),n=document.querySelector('.nav');
   if(t&&n){t.addEventListener('click',function(){var o=n.classList.toggle('open');t.setAttribute('aria-expanded',o?'true':'false');});}
   var f=document.querySelector('form.enquiry');
-  if(f){f.addEventListener('submit',function(e){e.preventDefault();var d=document.getElementById('form-done');if(d){d.hidden=false;d.focus();}f.querySelector('button').disabled=true;});}
+  if(f){f.addEventListener('submit',function(){var b=f.querySelector('button[type=submit]');if(b){b.disabled=true;b.textContent='Sending…';}});}
 })();
 </script>
 </body>
