@@ -82,19 +82,32 @@ p{margin:0 0 1em}
   .nav .call{margin:.5rem 0 0;justify-content:center}
 }
 
-/* hero */
+/* hero: the exterior photo is 1800x943 (1.91:1) so the box matches it; on phones a 4:3 photo is used instead
+   and the copy sits below the picture rather than on top of a cropped one */
 .hero{position:relative;display:grid;background:#2a1d17;color:#fff}
-.hero img{grid-area:1/1;width:100%;aspect-ratio:16/7;max-height:640px;object-fit:cover;object-position:center 60%}
-.hero::after{content:"";grid-area:1/1;background:linear-gradient(to top,rgba(20,10,6,.88) 0%,rgba(20,10,6,.58) 50%,rgba(20,10,6,.12) 100%)}
+.hero picture{grid-area:1/1;display:block;min-width:0}
+.hero img{width:100%;height:auto;aspect-ratio:1800/943;max-height:640px;object-fit:cover;object-position:center 55%}
+.hero::after{content:"";grid-area:1/1;background:linear-gradient(to top,rgba(20,10,6,.88) 0%,rgba(20,10,6,.55) 45%,rgba(20,10,6,.08) 100%)}
 .hero .eyebrow,.hero .lede{text-shadow:0 1px 8px rgba(0,0,0,.45)}
 .hero .copy{grid-area:1/1;position:relative;z-index:1;align-self:end;width:100%;padding-block:2.5rem 2.75rem}
 .hero .copy .eyebrow{color:#e7c98a}
 .hero h1{color:#fff;max-width:16ch;text-shadow:0 2px 14px rgba(0,0,0,.35)}
 .hero .lede{color:rgba(255,255,255,.88);max-width:46ch;margin:.9rem 0 1.4rem}
-@media (max-width:700px){.hero img{aspect-ratio:4/4.4;max-height:none}.hero .copy{padding-block:1.75rem 2rem}}
-.hero.short img{aspect-ratio:16/5.2;min-height:300px;max-height:460px}
-@media (max-width:700px){.hero.short img{aspect-ratio:4/3;min-height:0}}
-.hero.short h1{font-size:clamp(2rem,4vw,3rem)}
+@media (max-width:700px){
+  .hero{grid-template-rows:auto auto;background:var(--brand)}
+  .hero picture{grid-area:1/1}
+  .hero img{aspect-ratio:4/3;max-height:none;object-fit:cover}
+  .hero::after{display:none}
+  .hero .copy{grid-area:2/1;padding-block:1.6rem 1.9rem}
+  .hero h1,.hero .lede,.hero .eyebrow{text-shadow:none}
+}
+/* page headers: title beside the photo at its own proportions, never stretched to fill the screen */
+.page-head{background:var(--brand);color:var(--on-brand)}
+.page-head .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:1.5rem 3rem;align-items:center;padding-block:2rem}
+.page-head .eyebrow{color:#e7c98a}
+.page-head h1{color:var(--on-brand);font-size:clamp(2rem,4vw,3rem)}
+.page-head img{width:100%;height:auto;border-radius:3px;display:block}
+@media (max-width:760px){.page-head .wrap{grid-template-columns:1fr;padding-block:1.25rem 1.75rem}.page-head img{order:-1}}
 
 /* strips & bands */
 .infostrip{background:var(--surface);border-bottom:1px solid var(--line)}
@@ -113,10 +126,8 @@ section.band.dark a:not(.btn){color:#f3dcb0}
 .two{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(1.5rem,4vw,4rem);align-items:center}
 .two>*{min-width:0}
 @media (max-width:820px){.two{grid-template-columns:1fr}}
-.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.photo-pair img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:3px}
-.photo-pair img:first-child{margin-top:2.5rem}
-.photo-pair img:last-child{margin-bottom:2.5rem}
+.photo-pair{display:grid;grid-template-columns:1fr;gap:.75rem}
+.photo-pair img{width:100%;height:auto;border-radius:3px}
 .frame{border-radius:3px;overflow:hidden;background:var(--surface-2)}
 .frame img{width:100%;object-fit:cover}
 figure{margin:0}
@@ -125,7 +136,7 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
 /* cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
 .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden;min-width:0}
-.card img{width:100%;aspect-ratio:5/3;object-fit:cover}
+.card img{width:100%;height:auto}
 .card .body{padding:1.1rem 1.2rem 1.3rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
 .card h3{font-size:1.25rem}
 .card p{margin:0;color:var(--muted);font-size:.98rem}
@@ -134,7 +145,8 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
 
 /* photo strip for the pub's panoramic photographs (527x210 originals) */
 .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem}
-.strip figure img{width:100%;aspect-ratio:527/210;object-fit:cover;border-radius:3px}
+.strip{align-items:start}
+.strip figure img{width:100%;height:auto;border-radius:3px}
 .strip figcaption{font-size:.82rem}
 
 /* menus */
@@ -171,15 +183,14 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
 @media (max-width:420px){.fixtures li{grid-template-columns:1fr}}
 .places{display:grid;gap:1.25rem}
 .place{display:grid;grid-template-columns:260px 1fr;gap:1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden}
-.place .pics{display:grid;grid-template-rows:1fr auto;min-width:0}
-.place img{width:100%;height:100%;object-fit:cover;min-height:180px}
-.place img.second{aspect-ratio:527/210;min-height:0;height:auto;border-top:2px solid var(--surface)}
-.place img.second.logo{object-fit:contain;aspect-ratio:auto;max-height:110px;padding:.6rem;background:var(--surface-2)}
+.place .pics{display:grid;gap:2px;min-width:0;align-self:start}
+.place img{width:100%;height:auto;display:block}
+.place img.second.logo{object-fit:contain;max-height:110px;padding:.6rem;background:var(--surface-2)}
 .place .body{padding:1.1rem 1.25rem 1.25rem;min-width:0}
 .place dl{display:grid;grid-template-columns:auto 1fr;gap:.2rem 1rem;margin:.75rem 0 0;font-size:.95rem}
 .place dt{color:var(--brass);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;align-self:baseline;padding-top:.2em}
 .place dd{margin:0;word-break:break-word}
-@media (max-width:640px){.place{grid-template-columns:1fr}.place img{aspect-ratio:16/9;min-height:0}.place img.second{aspect-ratio:527/210}}
+@media (max-width:640px){.place{grid-template-columns:1fr}}
 
 /* news */
 .notices{display:grid;gap:1rem}
@@ -244,7 +255,7 @@ form.enquiry textarea{min-height:110px;resize:vertical}
 </div></header>
 <main>
 <section class="hero">
-  <img src="images/hero-exterior.jpg" alt="The Old Oak Tree, a cream-rendered village pub with a red pantile roof, on a sunny day" fetchpriority="high">
+  <picture><source media="(max-width:700px)" srcset="images/exterior.jpg"><img src="images/hero-exterior.jpg" alt="The Old Oak Tree, a cream-rendered village pub with a red pantile roof, on a sunny day" fetchpriority="high" width="1800" height="943"></picture>
   <div class="copy"><div class="wrap">
     <p class="eyebrow">South Kilvington &middot; Thirsk &middot; North Yorkshire</p>
     <h1>A pub with passion.</h1>
@@ -267,8 +278,8 @@ form.enquiry textarea{min-height:110px;resize:vertical}
     <div class="btns"><a class="btn" href="menu.html">See the menu</a><a class="btn ghost" href="sunday-lunch.html">Sunday lunch</a></div>
   </div>
   <div class="photo-pair">
-    <img src="images/bar-ales.jpg" alt="Hand pumps and bottled beers on the bar" loading="lazy">
-    <img src="images/food-roast.jpg" alt="Roast duck with green beans and roasted tomatoes" loading="lazy">
+    <img src="images/bar-ales.jpg" alt="Hand pumps and bottled beers on the bar" loading="lazy" width="527" height="210">
+    <img src="images/food-roast.jpg" alt="Roast duck with green beans and roasted tomatoes" loading="lazy" width="527" height="210">
   </div>
 </div></section>
 
@@ -276,15 +287,15 @@ form.enquiry textarea{min-height:110px;resize:vertical}
   <p class="eyebrow">Eat, drink, stay</p>
   <h2 style="margin-bottom:1.5rem">What we do</h2>
   <div class="cards">
-    <article class="card"><img src="images/pie.jpg" alt="Steak and ale pie with golden shortcrust" loading="lazy"><div class="body"><h3>Our menu</h3><p>Classic pub favourites done properly: steak and ale pie, Whitby scampi, parmos, burgers from the grill and a proper children's menu.</p><a class="more" href="menu.html">Full menu and prices</a></div></article>
-    <article class="card"><img src="images/yorkshire-pudding.jpg" alt="A large homemade Yorkshire pudding" loading="lazy"><div class="body"><h3>Sunday lunch</h3><p>Farm-fresh meat and vegetables, homemade Yorkshire puddings and chef's sweets from the board. Served 12 till 2.30pm; takeaway available if you pre-order.</p><a class="more" href="sunday-lunch.html">Sunday menu</a></div></article>
-    <article class="card"><img src="images/room-bedroom.jpg" alt="A double bedroom with a flat-screen television" loading="lazy"><div class="body"><h3>Rooms</h3><p>Five modern, bright en-suite rooms and a one-bedroom luxury barn. Bed and breakfast from £70 single and £90 for two. Dogs welcome.</p><a class="more" href="rooms.html">Rooms and rates</a></div></article>
-    <article class="card"><img src="images/restaurant-tables.jpg" alt="The restaurant set for a party, with views over the garden" loading="lazy"><div class="body"><h3>Private dining</h3><p>Weddings, birthdays, christenings and anniversaries. The restaurant can be booked exclusively for up to 50 guests.</p><a class="more" href="private-dining.html">Parties and functions</a></div></article>
+    <article class="card"><img src="images/pie.jpg" alt="Steak and ale pie with golden shortcrust" loading="lazy" width="527" height="210"><div class="body"><h3>Our menu</h3><p>Classic pub favourites done properly: steak and ale pie, Whitby scampi, parmos, burgers from the grill and a proper children's menu.</p><a class="more" href="menu.html">Full menu and prices</a></div></article>
+    <article class="card"><img src="images/yorkshire-pudding.jpg" alt="A large homemade Yorkshire pudding" loading="lazy" width="527" height="210"><div class="body"><h3>Sunday lunch</h3><p>Farm-fresh meat and vegetables, homemade Yorkshire puddings and chef's sweets from the board. Served 12 till 2.30pm; takeaway available if you pre-order.</p><a class="more" href="sunday-lunch.html">Sunday menu</a></div></article>
+    <article class="card"><img src="images/room-bedroom.jpg" alt="A double bedroom with a flat-screen television" loading="lazy" width="527" height="210"><div class="body"><h3>Rooms</h3><p>Five modern, bright en-suite rooms and a one-bedroom luxury barn. Bed and breakfast from £70 single and £90 for two. Dogs welcome.</p><a class="more" href="rooms.html">Rooms and rates</a></div></article>
+    <article class="card"><img src="images/restaurant-tables.jpg" alt="The restaurant set for a party, with views over the garden" loading="lazy" width="527" height="210"><div class="body"><h3>Private dining</h3><p>Weddings, birthdays, christenings and anniversaries. The restaurant can be booked exclusively for up to 50 guests.</p><a class="more" href="private-dining.html">Parties and functions</a></div></article>
   </div>
 </div></section>
 
 <section class="band dark"><div class="wrap two">
-  <div class="frame"><img src="images/racing-finish.jpg" alt="Horses racing to the line at Thirsk" loading="lazy" style="aspect-ratio:527/210"></div>
+  <div class="frame"><img src="images/racing-finish.jpg" alt="Horses racing to the line at Thirsk" loading="lazy" style="aspect-ratio:527/210" width="527" height="210"></div>
   <div><p class="eyebrow">Thirsk Races</p><h2>The ideal race-day base.</h2>
     <p class="lede" style="margin-top:.8rem">We are on the main access road into Thirsk, the perfect place for a drink or a meal before and after racing.</p>
     <p>Race-day offers, rooms for the weekend and a restaurant that can be booked for groups. Book early for the big meetings.</p>
@@ -301,10 +312,10 @@ form.enquiry textarea{min-height:110px;resize:vertical}
   </div>
   <div><p class="eyebrow">Around the pub</p><h2>In pictures</h2>
     <div class="strip" style="margin-top:1.25rem;grid-template-columns:1fr 1fr">
-      <figure><img src="images/specials-board.jpg" alt="The daily specials chalkboard" loading="lazy"><figcaption>Daily specials</figcaption></figure>
-      <figure><img src="images/pub-seating.jpg" alt="Tables and chairs in the pub bar" loading="lazy"><figcaption>Seating in the pub and bar</figcaption></figure>
-      <figure><img src="images/room-tray.jpg" alt="Tea tray with kettle, cups and glasses in a bedroom" loading="lazy"><figcaption>In the rooms</figcaption></figure>
-      <figure><img src="images/exterior-sign.jpg" alt="The pub sign and frontage from the road" loading="lazy"><figcaption>Find us just off the A19</figcaption></figure>
+      <figure><img src="images/specials-board.jpg" alt="The daily specials chalkboard" loading="lazy" width="527" height="210"><figcaption>Daily specials</figcaption></figure>
+      <figure><img src="images/pub-seating.jpg" alt="Tables and chairs in the pub bar" loading="lazy" width="527" height="210"><figcaption>Seating in the pub and bar</figcaption></figure>
+      <figure><img src="images/room-tray.jpg" alt="Tea tray with kettle, cups and glasses in a bedroom" loading="lazy" width="527" height="210"><figcaption>In the rooms</figcaption></figure>
+      <figure><img src="images/exterior-sign.jpg" alt="The pub sign and frontage from the road" loading="lazy" width="527" height="210"><figcaption>Find us just off the A19</figcaption></figure>
     </div>
   </div>
 </div></section>

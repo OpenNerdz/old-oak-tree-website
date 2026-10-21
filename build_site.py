@@ -91,19 +91,32 @@ p{margin:0 0 1em}
   .nav .call{margin:.5rem 0 0;justify-content:center}
 }
 
-/* hero */
+/* hero: the exterior photo is 1800x943 (1.91:1) so the box matches it; on phones a 4:3 photo is used instead
+   and the copy sits below the picture rather than on top of a cropped one */
 .hero{position:relative;display:grid;background:#2a1d17;color:#fff}
-.hero img{grid-area:1/1;width:100%;aspect-ratio:16/7;max-height:640px;object-fit:cover;object-position:center 60%}
-.hero::after{content:"";grid-area:1/1;background:linear-gradient(to top,rgba(20,10,6,.88) 0%,rgba(20,10,6,.58) 50%,rgba(20,10,6,.12) 100%)}
+.hero picture{grid-area:1/1;display:block;min-width:0}
+.hero img{width:100%;height:auto;aspect-ratio:1800/943;max-height:640px;object-fit:cover;object-position:center 55%}
+.hero::after{content:"";grid-area:1/1;background:linear-gradient(to top,rgba(20,10,6,.88) 0%,rgba(20,10,6,.55) 45%,rgba(20,10,6,.08) 100%)}
 .hero .eyebrow,.hero .lede{text-shadow:0 1px 8px rgba(0,0,0,.45)}
 .hero .copy{grid-area:1/1;position:relative;z-index:1;align-self:end;width:100%;padding-block:2.5rem 2.75rem}
 .hero .copy .eyebrow{color:#e7c98a}
 .hero h1{color:#fff;max-width:16ch;text-shadow:0 2px 14px rgba(0,0,0,.35)}
 .hero .lede{color:rgba(255,255,255,.88);max-width:46ch;margin:.9rem 0 1.4rem}
-@media (max-width:700px){.hero img{aspect-ratio:4/4.4;max-height:none}.hero .copy{padding-block:1.75rem 2rem}}
-.hero.short img{aspect-ratio:16/5.2;min-height:300px;max-height:460px}
-@media (max-width:700px){.hero.short img{aspect-ratio:4/3;min-height:0}}
-.hero.short h1{font-size:clamp(2rem,4vw,3rem)}
+@media (max-width:700px){
+  .hero{grid-template-rows:auto auto;background:var(--brand)}
+  .hero picture{grid-area:1/1}
+  .hero img{aspect-ratio:4/3;max-height:none;object-fit:cover}
+  .hero::after{display:none}
+  .hero .copy{grid-area:2/1;padding-block:1.6rem 1.9rem}
+  .hero h1,.hero .lede,.hero .eyebrow{text-shadow:none}
+}
+/* page headers: title beside the photo at its own proportions, never stretched to fill the screen */
+.page-head{background:var(--brand);color:var(--on-brand)}
+.page-head .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:1.5rem 3rem;align-items:center;padding-block:2rem}
+.page-head .eyebrow{color:#e7c98a}
+.page-head h1{color:var(--on-brand);font-size:clamp(2rem,4vw,3rem)}
+.page-head img{width:100%;height:auto;border-radius:3px;display:block}
+@media (max-width:760px){.page-head .wrap{grid-template-columns:1fr;padding-block:1.25rem 1.75rem}.page-head img{order:-1}}
 
 /* strips & bands */
 .infostrip{background:var(--surface);border-bottom:1px solid var(--line)}
@@ -122,10 +135,8 @@ section.band.dark a:not(.btn){color:#f3dcb0}
 .two{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(1.5rem,4vw,4rem);align-items:center}
 .two>*{min-width:0}
 @media (max-width:820px){.two{grid-template-columns:1fr}}
-.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.photo-pair img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:3px}
-.photo-pair img:first-child{margin-top:2.5rem}
-.photo-pair img:last-child{margin-bottom:2.5rem}
+.photo-pair{display:grid;grid-template-columns:1fr;gap:.75rem}
+.photo-pair img{width:100%;height:auto;border-radius:3px}
 .frame{border-radius:3px;overflow:hidden;background:var(--surface-2)}
 .frame img{width:100%;object-fit:cover}
 figure{margin:0}
@@ -134,7 +145,7 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
 /* cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
 .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden;min-width:0}
-.card img{width:100%;aspect-ratio:5/3;object-fit:cover}
+.card img{width:100%;height:auto}
 .card .body{padding:1.1rem 1.2rem 1.3rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
 .card h3{font-size:1.25rem}
 .card p{margin:0;color:var(--muted);font-size:.98rem}
@@ -143,7 +154,8 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
 
 /* photo strip for the pub's panoramic photographs (527x210 originals) */
 .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem}
-.strip figure img{width:100%;aspect-ratio:527/210;object-fit:cover;border-radius:3px}
+.strip{align-items:start}
+.strip figure img{width:100%;height:auto;border-radius:3px}
 .strip figcaption{font-size:.82rem}
 
 /* menus */
@@ -180,15 +192,14 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
 @media (max-width:420px){.fixtures li{grid-template-columns:1fr}}
 .places{display:grid;gap:1.25rem}
 .place{display:grid;grid-template-columns:260px 1fr;gap:1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden}
-.place .pics{display:grid;grid-template-rows:1fr auto;min-width:0}
-.place img{width:100%;height:100%;object-fit:cover;min-height:180px}
-.place img.second{aspect-ratio:527/210;min-height:0;height:auto;border-top:2px solid var(--surface)}
-.place img.second.logo{object-fit:contain;aspect-ratio:auto;max-height:110px;padding:.6rem;background:var(--surface-2)}
+.place .pics{display:grid;gap:2px;min-width:0;align-self:start}
+.place img{width:100%;height:auto;display:block}
+.place img.second.logo{object-fit:contain;max-height:110px;padding:.6rem;background:var(--surface-2)}
 .place .body{padding:1.1rem 1.25rem 1.25rem;min-width:0}
 .place dl{display:grid;grid-template-columns:auto 1fr;gap:.2rem 1rem;margin:.75rem 0 0;font-size:.95rem}
 .place dt{color:var(--brass);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;align-self:baseline;padding-top:.2em}
 .place dd{margin:0;word-break:break-word}
-@media (max-width:640px){.place{grid-template-columns:1fr}.place img{aspect-ratio:16/9;min-height:0}.place img.second{aspect-ratio:527/210}}
+@media (max-width:640px){.place{grid-template-columns:1fr}}
 
 /* news */
 .notices{display:grid;gap:1rem}
@@ -297,6 +308,7 @@ def page(fname, title, body, current=None, desc=""):
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{FONTS}">
 <style>{CSS}</style>"""
+    body = add_dims(body)
     inner = head_bits + "\n" + header(current or fname) + "\n<main>" + body + "\n</main>" + footer()
     full = f"""<!doctype html>
 <html lang="en-GB">
@@ -413,6 +425,25 @@ PLACES = [
  ("Thirsk Racecourse", "Country racing at its best, with high-quality racing, good facilities and attractive surroundings. We are on the main road in from the A19.", "Thirsk", "01845 522276", "https://www.thirskracecourse.net", "images/racecourse-stand.jpg", "The grandstand at Thirsk Racecourse", "images/racecourse-paddock.jpg", "Racegoers by the parade ring"),
 ]
 
+def page_head(eyebrow, title, img, alt):
+    return f"""
+<section class="page-head"><div class="wrap"><div><p class="eyebrow">{eyebrow}</p><h1>{title}</h1></div><img src="{img}" alt="{alt}" fetchpriority="high"></div></section>"""
+
+
+def add_dims(markup):
+    """Give every site image its real width and height so the browser keeps its proportions (no cropping or
+    stretching) and reserves the space before the file arrives."""
+    from PIL import Image
+    def fix(m):
+        tag = m.group(0)
+        if "width=" in tag: return tag
+        p = os.path.join(HERE, m.group(1))
+        if not os.path.exists(p): return tag
+        w, h = Image.open(p).size
+        return tag[:-1] + f' width="{w}" height="{h}">'
+    return re.sub(r'<img[^>]*src="(images/[^"]+)"[^>]*>', fix, markup)
+
+
 def menu_items(items):
     out = []
     for name, price, tags, desc in items:
@@ -429,7 +460,7 @@ def strip(photos):
 def home():
     return f"""
 <section class="hero">
-  <img src="images/hero-exterior.jpg" alt="The Old Oak Tree, a cream-rendered village pub with a red pantile roof, on a sunny day" fetchpriority="high">
+  <picture><source media="(max-width:700px)" srcset="images/exterior.jpg"><img src="images/hero-exterior.jpg" alt="The Old Oak Tree, a cream-rendered village pub with a red pantile roof, on a sunny day" fetchpriority="high"></picture>
   <div class="copy"><div class="wrap">
     <p class="eyebrow">South Kilvington &middot; Thirsk &middot; North Yorkshire</p>
     <h1>A pub with passion.</h1>
@@ -498,7 +529,7 @@ def menu_page():
     sections = "".join(f"""
 <section class="menu-section" id="{re.sub('[^a-z]+','-',h.lower()).strip('-')}"><h2>{h}{f'<small>{note}</small>' if note else ''}</h2><ul class="items">{menu_items(items)}</ul></section>""" for h, note, items in MENU)
     return f"""
-<section class="hero short"><img src="images/specials-board.jpg" alt="The specials chalkboard listing the day's dishes" fetchpriority="high"><div class="copy"><div class="wrap"><p class="eyebrow">Served every day except Sunday lunch</p><h1>Our menu</h1></div></div></section>
+{page_head("Served every day except Sunday lunch", "Our menu", "images/specials-board.jpg", "The specials chalkboard listing the day's dishes")}
 <section class="band"><div class="wrap">
   <div class="menu-intro"><div class="measure"><p class="lede">Classic pub favourites, home-cooked. In addition to the everyday menu below we have ever-changing specials boards, and sandwiches and light bites over lunch.</p>
     <p class="key"><span class="tag" style="margin-left:0">GF</span> gluten free &nbsp; <span class="tag" style="margin-left:0">V</span> vegetarian &nbsp; <span class="tag" style="margin-left:0">Vegan</span> vegan. Please tell us about any allergies when you order.</p></div>
@@ -512,7 +543,7 @@ def sunday_page():
     starters = "".join(f'<li class="item"><span class="n">{s}</span></li>' for s in SUNDAY["starters"])
     mains = "".join(f'<li class="item"><span class="n">{n}{f" <em>{d}</em>" if d else ""}</span></li>' for n, d in SUNDAY["mains"])
     return f"""
-<section class="hero short"><img src="images/roast-beef.jpg" alt="Slices of pink roast beef" fetchpriority="high"><div class="copy"><div class="wrap"><p class="eyebrow">Served 12 till 2.30pm</p><h1>Sunday lunch</h1></div></div></section>
+{page_head("Served 12 till 2.30pm", "Sunday lunch", "images/roast-beef.jpg", "Slices of pink roast beef")}
 <section class="band"><div class="wrap">
   <div class="two" style="align-items:start"><div class="measure"><p class="lede">Farm-fresh meat and vegetables in a traditional Sunday lunch, with large homemade Yorkshire puddings and chef's sweets from the board.</p>
     <p>Sunday lunch is popular, so please book. Everything on the Sunday menu is available to take away if you pre-order.</p>
@@ -527,7 +558,7 @@ def sunday_page():
 
 def rooms_page():
     return f"""
-<section class="hero short"><img src="images/exterior.jpg" alt="The Old Oak Tree pub frontage with hanging baskets" fetchpriority="high" style="object-position:center 55%"><div class="copy"><div class="wrap"><p class="eyebrow">Bed and breakfast in South Kilvington</p><h1>Rooms</h1></div></div></section>
+{page_head("Bed and breakfast in South Kilvington", "Rooms", "images/exterior.jpg", "The Old Oak Tree pub frontage with hanging baskets")}
 <section class="band"><div class="wrap">
   <div class="two" style="align-items:start">
     <div class="measure"><p class="lede">Five en-suite rooms, modern and bright with the very best of facilities, in the delightful village of South Kilvington just 1.5 miles from Thirsk.</p>
@@ -552,7 +583,7 @@ def rooms_page():
 
 def dining_page():
     return f"""
-<section class="hero short"><img src="images/restaurant-tables.jpg" alt="Long tables set in the restaurant with garden views" fetchpriority="high"><div class="copy"><div class="wrap"><p class="eyebrow">Restaurant, parties and functions</p><h1>Private dining</h1></div></div></section>
+{page_head("Restaurant, parties and functions", "Private dining", "images/restaurant-tables.jpg", "Long tables set in the restaurant with garden views")}
 <section class="band"><div class="wrap two" style="align-items:start">
   <div class="measure"><p class="lede">Our purpose-built restaurant seats up to 50, with open views across the garden and an emphasis on local, seasonal ingredients and traditional pub favourites.</p>
     <p>Whether it is a wedding, birthday, christening or special anniversary, we will do our best to cater for your individual requirements. The restaurant can be booked exclusively for up to 50 guests.</p>
@@ -567,7 +598,7 @@ def dining_page():
 def races_page():
     fx = "".join(f'<li><span class="d">{d}</span><span>{n}</span></li>' for d, n in FIXTURES_2026)
     return f"""
-<section class="hero short"><img src="images/racing-finish.jpg" alt="Jockeys and horses in full flight at Thirsk" fetchpriority="high"><div class="copy"><div class="wrap"><p class="eyebrow">Thirsk Racecourse</p><h1>Race days</h1></div></div></section>
+{page_head("Thirsk Racecourse", "Race days", "images/racing-finish.jpg", "Jockeys and horses in full flight at Thirsk")}
 <section class="band"><div class="wrap two" style="align-items:start">
   <div class="measure"><p class="lede">Conveniently situated on the main access road into Thirsk, the Old Oak Tree is the ideal place for a pre- or post-race drink or meal.</p>
     <p>With special race-day offers and an ideal location, we are the perfect place to make a day of the races. Our restaurant can be booked for groups and private functions, and our <a href="rooms.html">rooms</a> make a comfortable base for a race weekend.</p>
@@ -586,7 +617,7 @@ def local_page():
 <article class="place"><div class="pics"><img src="{img}" alt="{alt}" loading="lazy"><img src="{img2}" alt="{alt2}" loading="lazy" class="second{' logo' if img2.endswith('.png') else ''}"></div><div class="body"><h3>{n}</h3><p style="margin:.4rem 0 0;color:var(--muted)">{d}</p>
 <dl><dt>Where</dt><dd>{loc}</dd><dt>Phone</dt><dd>{ph}</dd><dt>Website</dt><dd><a href="{url}" target="_blank" rel="noopener">{url.replace('https://','')}</a></dd></dl></div></article>""" for n, d, loc, ph, url, img, alt, img2, alt2 in PLACES)
     return f"""
-<section class="hero short"><img src="images/herriot-sign.jpg" alt="The brass plate for Mr J A Wight, veterinary surgeon, at the World of James Herriot" fetchpriority="high"><div class="copy"><div class="wrap"><p class="eyebrow">Thirsk and the Hambleton hills</p><h1>Local area</h1></div></div></section>
+{page_head("Thirsk and the Hambleton hills", "Local area", "images/herriot-museum.jpg", "Inside the World of James Herriot in Thirsk")}
 <section class="band"><div class="wrap">
   <p class="lede measure">Why not explore some of the attractions close by? Thirsk, the market town of the James Herriot books, is a mile and a half down the road, with the North York Moors and the Dales within easy reach.</p>
   <div class="places" style="margin-top:2rem">{cards}</div>

@@ -82,19 +82,32 @@ p{margin:0 0 1em}
   .nav .call{margin:.5rem 0 0;justify-content:center}
 }
 
-/* hero */
+/* hero: the exterior photo is 1800x943 (1.91:1) so the box matches it; on phones a 4:3 photo is used instead
+   and the copy sits below the picture rather than on top of a cropped one */
 .hero{position:relative;display:grid;background:#2a1d17;color:#fff}
-.hero img{grid-area:1/1;width:100%;aspect-ratio:16/7;max-height:640px;object-fit:cover;object-position:center 60%}
-.hero::after{content:"";grid-area:1/1;background:linear-gradient(to top,rgba(20,10,6,.88) 0%,rgba(20,10,6,.58) 50%,rgba(20,10,6,.12) 100%)}
+.hero picture{grid-area:1/1;display:block;min-width:0}
+.hero img{width:100%;height:auto;aspect-ratio:1800/943;max-height:640px;object-fit:cover;object-position:center 55%}
+.hero::after{content:"";grid-area:1/1;background:linear-gradient(to top,rgba(20,10,6,.88) 0%,rgba(20,10,6,.55) 45%,rgba(20,10,6,.08) 100%)}
 .hero .eyebrow,.hero .lede{text-shadow:0 1px 8px rgba(0,0,0,.45)}
 .hero .copy{grid-area:1/1;position:relative;z-index:1;align-self:end;width:100%;padding-block:2.5rem 2.75rem}
 .hero .copy .eyebrow{color:#e7c98a}
 .hero h1{color:#fff;max-width:16ch;text-shadow:0 2px 14px rgba(0,0,0,.35)}
 .hero .lede{color:rgba(255,255,255,.88);max-width:46ch;margin:.9rem 0 1.4rem}
-@media (max-width:700px){.hero img{aspect-ratio:4/4.4;max-height:none}.hero .copy{padding-block:1.75rem 2rem}}
-.hero.short img{aspect-ratio:16/5.2;min-height:300px;max-height:460px}
-@media (max-width:700px){.hero.short img{aspect-ratio:4/3;min-height:0}}
-.hero.short h1{font-size:clamp(2rem,4vw,3rem)}
+@media (max-width:700px){
+  .hero{grid-template-rows:auto auto;background:var(--brand)}
+  .hero picture{grid-area:1/1}
+  .hero img{aspect-ratio:4/3;max-height:none;object-fit:cover}
+  .hero::after{display:none}
+  .hero .copy{grid-area:2/1;padding-block:1.6rem 1.9rem}
+  .hero h1,.hero .lede,.hero .eyebrow{text-shadow:none}
+}
+/* page headers: title beside the photo at its own proportions, never stretched to fill the screen */
+.page-head{background:var(--brand);color:var(--on-brand)}
+.page-head .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:1.5rem 3rem;align-items:center;padding-block:2rem}
+.page-head .eyebrow{color:#e7c98a}
+.page-head h1{color:var(--on-brand);font-size:clamp(2rem,4vw,3rem)}
+.page-head img{width:100%;height:auto;border-radius:3px;display:block}
+@media (max-width:760px){.page-head .wrap{grid-template-columns:1fr;padding-block:1.25rem 1.75rem}.page-head img{order:-1}}
 
 /* strips & bands */
 .infostrip{background:var(--surface);border-bottom:1px solid var(--line)}
@@ -113,10 +126,8 @@ section.band.dark a:not(.btn){color:#f3dcb0}
 .two{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(1.5rem,4vw,4rem);align-items:center}
 .two>*{min-width:0}
 @media (max-width:820px){.two{grid-template-columns:1fr}}
-.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
-.photo-pair img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:3px}
-.photo-pair img:first-child{margin-top:2.5rem}
-.photo-pair img:last-child{margin-bottom:2.5rem}
+.photo-pair{display:grid;grid-template-columns:1fr;gap:.75rem}
+.photo-pair img{width:100%;height:auto;border-radius:3px}
 .frame{border-radius:3px;overflow:hidden;background:var(--surface-2)}
 .frame img{width:100%;object-fit:cover}
 figure{margin:0}
@@ -125,7 +136,7 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
 /* cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
 .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden;min-width:0}
-.card img{width:100%;aspect-ratio:5/3;object-fit:cover}
+.card img{width:100%;height:auto}
 .card .body{padding:1.1rem 1.2rem 1.3rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
 .card h3{font-size:1.25rem}
 .card p{margin:0;color:var(--muted);font-size:.98rem}
@@ -134,7 +145,8 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
 
 /* photo strip for the pub's panoramic photographs (527x210 originals) */
 .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem}
-.strip figure img{width:100%;aspect-ratio:527/210;object-fit:cover;border-radius:3px}
+.strip{align-items:start}
+.strip figure img{width:100%;height:auto;border-radius:3px}
 .strip figcaption{font-size:.82rem}
 
 /* menus */
@@ -171,15 +183,14 @@ figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
 @media (max-width:420px){.fixtures li{grid-template-columns:1fr}}
 .places{display:grid;gap:1.25rem}
 .place{display:grid;grid-template-columns:260px 1fr;gap:1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden}
-.place .pics{display:grid;grid-template-rows:1fr auto;min-width:0}
-.place img{width:100%;height:100%;object-fit:cover;min-height:180px}
-.place img.second{aspect-ratio:527/210;min-height:0;height:auto;border-top:2px solid var(--surface)}
-.place img.second.logo{object-fit:contain;aspect-ratio:auto;max-height:110px;padding:.6rem;background:var(--surface-2)}
+.place .pics{display:grid;gap:2px;min-width:0;align-self:start}
+.place img{width:100%;height:auto;display:block}
+.place img.second.logo{object-fit:contain;max-height:110px;padding:.6rem;background:var(--surface-2)}
 .place .body{padding:1.1rem 1.25rem 1.25rem;min-width:0}
 .place dl{display:grid;grid-template-columns:auto 1fr;gap:.2rem 1rem;margin:.75rem 0 0;font-size:.95rem}
 .place dt{color:var(--brass);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;align-self:baseline;padding-top:.2em}
 .place dd{margin:0;word-break:break-word}
-@media (max-width:640px){.place{grid-template-columns:1fr}.place img{aspect-ratio:16/9;min-height:0}.place img.second{aspect-ratio:527/210}}
+@media (max-width:640px){.place{grid-template-columns:1fr}}
 
 /* news */
 .notices{display:grid;gap:1rem}
@@ -243,19 +254,20 @@ form.enquiry textarea{min-height:110px;resize:vertical}
   <nav class="nav" id="nav" aria-label="Main"><a href="menu.html">Menu</a><a href="sunday-lunch.html">Sunday Lunch</a><a href="rooms.html">Rooms</a><a href="private-dining.html">Private Dining</a><a href="race-days.html">Race Days</a><a href="local-area.html" aria-current="page">Local Area</a><a href="news.html">News</a><a href="contact.html">Contact</a><a class="btn call" href="tel:+441845523276"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8z"/></svg>01845 523276</a></nav>
 </div></header>
 <main>
-<section class="hero short"><img src="images/herriot-sign.jpg" alt="The brass plate for Mr J A Wight, veterinary surgeon, at the World of James Herriot" fetchpriority="high"><div class="copy"><div class="wrap"><p class="eyebrow">Thirsk and the Hambleton hills</p><h1>Local area</h1></div></div></section>
+
+<section class="page-head"><div class="wrap"><div><p class="eyebrow">Thirsk and the Hambleton hills</p><h1>Local area</h1></div><img src="images/herriot-museum.jpg" alt="Inside the World of James Herriot in Thirsk" fetchpriority="high" width="900" height="599"></div></section>
 <section class="band"><div class="wrap">
   <p class="lede measure">Why not explore some of the attractions close by? Thirsk, the market town of the James Herriot books, is a mile and a half down the road, with the North York Moors and the Dales within easy reach.</p>
   <div class="places" style="margin-top:2rem">
-<article class="place"><div class="pics"><img src="images/hambleton-brewery.jpg" alt="Hambleton Brewery bottles" loading="lazy"><img src="images/hambleton-logo.png" alt="Hambleton Brewery logo" loading="lazy" class="second logo"></div><div class="body"><h3>Hambleton Ales</h3><p style="margin:.4rem 0 0;color:var(--muted)">Microbrewery near Thirsk producing bottled and cask-conditioned ales. You will find their beers on our bar.</p>
+<article class="place"><div class="pics"><img src="images/hambleton-brewery.jpg" alt="Hambleton Brewery bottles" loading="lazy" width="900" height="506"><img src="images/hambleton-logo.png" alt="Hambleton Brewery logo" loading="lazy" class="second logo" width="400" height="400"></div><div class="body"><h3>Hambleton Ales</h3><p style="margin:.4rem 0 0;color:var(--muted)">Microbrewery near Thirsk producing bottled and cask-conditioned ales. You will find their beers on our bar.</p>
 <dl><dt>Where</dt><dd>Melmerby</dd><dt>Phone</dt><dd>01765 640108</dd><dt>Website</dt><dd><a href="https://hambletonbrewery.co.uk" target="_blank" rel="noopener">hambletonbrewery.co.uk</a></dd></dl></div></article>
-<article class="place"><div class="pics"><img src="images/mouseman-centre.jpg" alt="The Mouseman Visitor Centre at Kilburn" loading="lazy"><img src="images/mouseman-carving.jpg" alt="The carved mouse signature on Mouseman furniture" loading="lazy" class="second"></div><div class="body"><h3>Mouseman Visitor Centre</h3><p style="margin:.4rem 0 0;color:var(--muted)">An amazing journey through the life and times of the Mouseman, from humble beginnings to furniture legend, with a tearoom and gift shop stocked with handmade Mouseman pieces.</p>
+<article class="place"><div class="pics"><img src="images/mouseman-centre.jpg" alt="The Mouseman Visitor Centre at Kilburn" loading="lazy" width="640" height="479"><img src="images/mouseman-carving.jpg" alt="The carved mouse signature on Mouseman furniture" loading="lazy" class="second" width="527" height="210"></div><div class="body"><h3>Mouseman Visitor Centre</h3><p style="margin:.4rem 0 0;color:var(--muted)">An amazing journey through the life and times of the Mouseman, from humble beginnings to furniture legend, with a tearoom and gift shop stocked with handmade Mouseman pieces.</p>
 <dl><dt>Where</dt><dd>Kilburn, Thirsk</dd><dt>Phone</dt><dd>01347 869102</dd><dt>Website</dt><dd><a href="https://www.robertthompsons.co.uk" target="_blank" rel="noopener">www.robertthompsons.co.uk</a></dd></dl></div></article>
-<article class="place"><div class="pics"><img src="images/herriot-museum.jpg" alt="Inside the World of James Herriot in Thirsk" loading="lazy"><img src="images/herriot-sign.jpg" alt="The brass plate for Mr J A Wight, veterinary surgeon" loading="lazy" class="second"></div><div class="body"><h3>The World of James Herriot</h3><p style="margin:.4rem 0 0;color:var(--muted)">One of the country's premier attractions, paying a unique tribute to the life and times of the author Alf Wight, otherwise known as James Herriot.</p>
+<article class="place"><div class="pics"><img src="images/herriot-museum.jpg" alt="Inside the World of James Herriot in Thirsk" loading="lazy" width="900" height="599"><img src="images/herriot-sign.jpg" alt="The brass plate for Mr J A Wight, veterinary surgeon" loading="lazy" class="second" width="527" height="210"></div><div class="body"><h3>The World of James Herriot</h3><p style="margin:.4rem 0 0;color:var(--muted)">One of the country's premier attractions, paying a unique tribute to the life and times of the author Alf Wight, otherwise known as James Herriot.</p>
 <dl><dt>Where</dt><dd>Thirsk</dd><dt>Phone</dt><dd>01845 524234</dd><dt>Website</dt><dd><a href="https://worldofjamesherriot.com" target="_blank" rel="noopener">worldofjamesherriot.com</a></dd></dl></div></article>
-<article class="place"><div class="pics"><img src="images/wallaby.jpg" alt="Feeding a wallaby at Monk Park Farm" loading="lazy"><img src="images/monk-park-pony.jpg" alt="A pony at the fence at Monk Park Farm" loading="lazy" class="second"></div><div class="body"><h3>Monk Park Farm</h3><p style="margin:.4rem 0 0;color:var(--muted)">Children's farm and visitor centre at Bagby, with animals from sheep and horses to wallabies and alpacas, an adventure playground, tea room and gift shop.</p>
+<article class="place"><div class="pics"><img src="images/wallaby.jpg" alt="Feeding a wallaby at Monk Park Farm" loading="lazy" width="900" height="675"><img src="images/monk-park-pony.jpg" alt="A pony at the fence at Monk Park Farm" loading="lazy" class="second" width="527" height="210"></div><div class="body"><h3>Monk Park Farm</h3><p style="margin:.4rem 0 0;color:var(--muted)">Children's farm and visitor centre at Bagby, with animals from sheep and horses to wallabies and alpacas, an adventure playground, tea room and gift shop.</p>
 <dl><dt>Where</dt><dd>Bagby, Thirsk</dd><dt>Phone</dt><dd>01845 597730</dd><dt>Website</dt><dd><a href="https://www.monkparkfarm.co.uk" target="_blank" rel="noopener">www.monkparkfarm.co.uk</a></dd></dl></div></article>
-<article class="place"><div class="pics"><img src="images/racecourse-stand.jpg" alt="The grandstand at Thirsk Racecourse" loading="lazy"><img src="images/racecourse-paddock.jpg" alt="Racegoers by the parade ring" loading="lazy" class="second"></div><div class="body"><h3>Thirsk Racecourse</h3><p style="margin:.4rem 0 0;color:var(--muted)">Country racing at its best, with high-quality racing, good facilities and attractive surroundings. We are on the main road in from the A19.</p>
+<article class="place"><div class="pics"><img src="images/racecourse-stand.jpg" alt="The grandstand at Thirsk Racecourse" loading="lazy" width="753" height="600"><img src="images/racecourse-paddock.jpg" alt="Racegoers by the parade ring" loading="lazy" class="second" width="527" height="210"></div><div class="body"><h3>Thirsk Racecourse</h3><p style="margin:.4rem 0 0;color:var(--muted)">Country racing at its best, with high-quality racing, good facilities and attractive surroundings. We are on the main road in from the A19.</p>
 <dl><dt>Where</dt><dd>Thirsk</dd><dt>Phone</dt><dd>01845 522276</dd><dt>Website</dt><dd><a href="https://www.thirskracecourse.net" target="_blank" rel="noopener">www.thirskracecourse.net</a></dd></dl></div></article></div>
 </div></section>
 </main>
