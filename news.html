@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>News · Old Oak Tree</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Closures, events and notices from the Old Oak Tree, South Kilvington, with the full archive since 2011.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Layout: full-bleed photo bands over a measured cream column. Burgundy is reserved for actions,
+   brass for labels and rules, so the photographs carry the colour. */
+:root{
+  --bg:#f4eee2;--surface:#fbf8f2;--surface-2:#eae1cf;--ink:#2a1d17;--muted:#6b5b50;--line:#d8cbb3;
+  --brand:#4b1118;--brand-hover:#601722;--on-brand:#f8f1e7;--brass:#8c6b3e;--brass-soft:#ebdfc6;
+  --shade:rgba(22,10,6,.58);--focus:#b8862b;
+  --font-display:'Cinzel',Georgia,'Times New Roman',serif;
+  --font-head:'Libre Caslon Text',Georgia,'Times New Roman',serif;
+  --font-body:'Source Sans 3','Segoe UI',Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1a1210;--surface:#231915;--surface-2:#2f231d;--ink:#f0e7d8;--muted:#b9a995;--line:#3f3129;
+  --brand:#6d1e29;--brand-hover:#842532;--on-brand:#fbf3e9;--brass:#cda75f;--brass-soft:#3b2e21;
+  --shade:rgba(0,0,0,.62);--focus:#e0b25a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1a1210;--surface:#231915;--surface-2:#2f231d;--ink:#f0e7d8;--muted:#b9a995;--line:#3f3129;
+  --brand:#6d1e29;--brand-hover:#842532;--on-brand:#fbf3e9;--brass:#cda75f;--brass-soft:#3b2e21;
+  --shade:rgba(0,0,0,.62);--focus:#e0b25a;color-scheme:dark}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--brand)}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--brand);text-underline-offset:.15em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--font-head);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.1rem,4.6vw,3.4rem)}
+h2{font-size:clamp(1.65rem,3vw,2.35rem)}
+h3{font-size:1.3rem}
+p{margin:0 0 1em}
+.wrap{max-width:1140px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.measure{max-width:62ch}
+.eyebrow{font-family:var(--font-body);font-weight:600;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);margin:0 0 .6rem}
+.lede{font-size:1.2rem;color:var(--muted)}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.25rem;border-radius:3px;font-weight:600;text-decoration:none;border:1.5px solid var(--brand);background:var(--brand);color:var(--on-brand);line-height:1.2;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--brand-hover);border-color:var(--brand-hover)}
+.btn.ghost{background:transparent;color:var(--brand)}
+.btn.ghost:hover{background:var(--brand);color:var(--on-brand)}
+.btn.light{background:var(--on-brand);color:var(--brand);border-color:var(--on-brand)}
+.btn.light:hover{background:#fff}
+.btn.ghost-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.75)}
+.btn.ghost-light:hover{background:rgba(255,255,255,.12)}
+.btn svg{width:1.05em;height:1.05em;flex:none}
+.btns{display:flex;flex-wrap:wrap;gap:.75rem}
+.acorn{width:22px;height:28px;fill:var(--brass);display:block;margin:0 0 .8rem}
+.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+/* notice + header */
+.notice{background:var(--brand);color:var(--on-brand);font-size:.9rem;text-align:center}
+.notice .wrap{padding-block:.45rem}
+.notice strong{font-weight:600}
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line)}
+.site-header .wrap{display:flex;align-items:center;gap:1.5rem;min-height:72px;padding-block:.5rem}
+.brand{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);line-height:1.05;flex:none}
+.brand .name{font-family:var(--font-display);font-weight:600;font-size:1.25rem;letter-spacing:.14em;color:var(--brand)}
+.brand .sub{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin-top:.25rem}
+.nav{display:flex;align-items:center;gap:.1rem;margin-left:auto}
+.nav a{padding:.5rem .55rem;text-decoration:none;color:var(--ink);font-weight:600;font-size:.9rem;border-radius:3px;white-space:nowrap}
+.nav a:hover{background:var(--surface-2)}
+.nav a[aria-current="page"]{color:var(--brand);box-shadow:inset 0 -2px 0 var(--brand)}
+.nav .call{margin-left:.5rem;padding:.55rem .9rem}
+.menu-toggle{display:none;margin-left:auto;background:none;border:1.5px solid var(--line);border-radius:3px;padding:.5rem .7rem;color:var(--ink);font:inherit;font-weight:600;cursor:pointer}
+@media (max-width:1120px){
+  .menu-toggle{display:inline-flex;align-items:center;gap:.5rem}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;background:var(--surface);border-bottom:1px solid var(--line);padding:.5rem max(16px,env(safe-area-inset-left,0px)) 1rem;gap:.15rem;box-shadow:0 12px 24px -12px rgba(0,0,0,.3)}
+  .nav.open{display:flex}
+  .nav a{padding:.75rem .6rem;font-size:1.05rem}
+  .nav .call{margin:.5rem 0 0;justify-content:center}
+}
+
+/* hero */
+.hero{position:relative;display:grid;background:#2a1d17;color:#fff}
+.hero img{grid-area:1/1;width:100%;aspect-ratio:16/7;max-height:640px;object-fit:cover;object-position:center 60%}
+.hero::after{content:"";grid-area:1/1;background:linear-gradient(to top,rgba(20,10,6,.88) 0%,rgba(20,10,6,.58) 50%,rgba(20,10,6,.12) 100%)}
+.hero .eyebrow,.hero .lede{text-shadow:0 1px 8px rgba(0,0,0,.45)}
+.hero .copy{grid-area:1/1;position:relative;z-index:1;align-self:end;width:100%;padding-block:2.5rem 2.75rem}
+.hero .copy .eyebrow{color:#e7c98a}
+.hero h1{color:#fff;max-width:16ch;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.hero .lede{color:rgba(255,255,255,.88);max-width:46ch;margin:.9rem 0 1.4rem}
+@media (max-width:700px){.hero img{aspect-ratio:4/4.4;max-height:none}.hero .copy{padding-block:1.75rem 2rem}}
+.hero.short img{aspect-ratio:16/5.2;min-height:300px;max-height:460px}
+@media (max-width:700px){.hero.short img{aspect-ratio:4/3;min-height:0}}
+.hero.short h1{font-size:clamp(2rem,4vw,3rem)}
+
+/* strips & bands */
+.infostrip{background:var(--surface);border-bottom:1px solid var(--line)}
+.infostrip .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem 2rem;padding-block:1.1rem}
+.infostrip .cell{display:flex;gap:.8rem;align-items:flex-start;min-width:0}
+.infostrip svg{width:22px;height:22px;flex:none;fill:none;stroke:var(--brass);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin-top:.2rem}
+.infostrip .k{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:600}
+.infostrip .v{font-size:.98rem;line-height:1.45}
+section.band{padding-block:clamp(3rem,6vw,5rem)}
+section.band.alt{background:var(--surface);border-block:1px solid var(--line)}
+section.band.dark{background:var(--brand);color:var(--on-brand)}
+section.band.dark .eyebrow{color:#e7c98a}
+section.band.dark h2,section.band.dark h3{color:var(--on-brand)}
+section.band.dark .lede,section.band.dark .muted{color:rgba(248,241,231,.8)}
+section.band.dark a:not(.btn){color:#f3dcb0}
+.two{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(1.5rem,4vw,4rem);align-items:center}
+.two>*{min-width:0}
+@media (max-width:820px){.two{grid-template-columns:1fr}}
+.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.photo-pair img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:3px}
+.photo-pair img:first-child{margin-top:2.5rem}
+.photo-pair img:last-child{margin-bottom:2.5rem}
+.frame{border-radius:3px;overflow:hidden;background:var(--surface-2)}
+.frame img{width:100%;object-fit:cover}
+figure{margin:0}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:.45rem}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden;min-width:0}
+.card img{width:100%;aspect-ratio:5/3;object-fit:cover}
+.card .body{padding:1.1rem 1.2rem 1.3rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.card h3{font-size:1.25rem}
+.card p{margin:0;color:var(--muted);font-size:.98rem}
+.card a.more{margin-top:auto;font-weight:600;text-decoration:none}
+.card a.more::after{content:" \2192"}
+
+/* photo strip for the pub's panoramic photographs (527x210 originals) */
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem}
+.strip figure img{width:100%;aspect-ratio:527/210;object-fit:cover;border-radius:3px}
+.strip figcaption{font-size:.82rem}
+
+/* menus */
+.menu-intro{display:grid;grid-template-columns:1fr auto;gap:1rem 3rem;align-items:end;margin-bottom:2.5rem}
+@media (max-width:700px){.menu-intro{grid-template-columns:1fr}}
+.served{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--brass);padding:.9rem 1.1rem;font-size:.95rem;border-radius:3px}
+.served .k{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:.2rem}
+.menu-section{padding-block:1.75rem;border-top:1px solid var(--line)}
+.menu-section h2{font-size:1.5rem;display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.menu-section h2 small{font-family:var(--font-body);font-size:.92rem;color:var(--muted);font-weight:400}
+.menu-section .note{color:var(--muted);font-size:.95rem;margin:.35rem 0 1rem}
+.items{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:.55rem 3rem}
+@media (max-width:760px){.items{grid-template-columns:1fr}}
+.item{display:flex;align-items:baseline;gap:.5rem;min-width:0}
+.item .n{min-width:0}
+.item .n em{font-style:italic;color:var(--muted)}
+.item .dots{flex:1;min-width:1.5rem;border-bottom:1px dotted var(--line);transform:translateY(-.3em)}
+.item .p{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.tag{display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--brass-soft);color:var(--brass);padding:.1rem .4rem;border-radius:2px;margin-left:.35rem;vertical-align:.1em}
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1.5rem 0}
+.prices div{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1rem;text-align:center}
+.prices .big{font-family:var(--font-head);font-size:1.9rem;line-height:1;margin-top:.2rem}
+@media (max-width:520px){.prices{grid-template-columns:1fr}}
+.key{font-size:.85rem;color:var(--muted)}
+
+/* lists */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.75rem;margin:1.5rem 0}
+.facts div{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:.8rem .9rem}
+.facts .k{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);font-weight:600}
+.facts .v{font-weight:600}
+.fixtures{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.4rem 2rem}
+.fixtures li{display:grid;grid-template-columns:11.5rem 1fr;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--line)}
+.fixtures .d{font-weight:600;font-variant-numeric:tabular-nums}
+@media (max-width:420px){.fixtures li{grid-template-columns:1fr}}
+.places{display:grid;gap:1.25rem}
+.place{display:grid;grid-template-columns:260px 1fr;gap:1.25rem;background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.place .pics{display:grid;grid-template-rows:1fr auto;min-width:0}
+.place img{width:100%;height:100%;object-fit:cover;min-height:180px}
+.place img.second{aspect-ratio:527/210;min-height:0;height:auto;border-top:2px solid var(--surface)}
+.place img.second.logo{object-fit:contain;aspect-ratio:auto;max-height:110px;padding:.6rem;background:var(--surface-2)}
+.place .body{padding:1.1rem 1.25rem 1.25rem;min-width:0}
+.place dl{display:grid;grid-template-columns:auto 1fr;gap:.2rem 1rem;margin:.75rem 0 0;font-size:.95rem}
+.place dt{color:var(--brass);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;align-self:baseline;padding-top:.2em}
+.place dd{margin:0;word-break:break-word}
+@media (max-width:640px){.place{grid-template-columns:1fr}.place img{aspect-ratio:16/9;min-height:0}.place img.second{aspect-ratio:527/210}}
+
+/* news */
+.notices{display:grid;gap:1rem}
+.notice-card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--brand);padding:1rem 1.2rem;border-radius:3px}
+.notice-card .d{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);font-weight:600}
+.notice-card h3{font-size:1.15rem;margin:.2rem 0 .3rem}
+.notice-card p{margin:0;color:var(--muted)}
+.archive h2{font-size:1.4rem;margin:2.25rem 0 .75rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+.post{display:grid;grid-template-columns:7.5rem 1fr;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.post time{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.92rem;padding-top:.15rem}
+.post h3{font-size:1.08rem;font-family:var(--font-body);font-weight:600}
+.post .c{color:var(--muted);font-size:.97rem}
+.post .c p{margin:.3rem 0 0}
+@media (max-width:520px){.post{grid-template-columns:1fr;gap:.2rem}}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.contact-grid>*{min-width:0}
+@media (max-width:820px){.contact-grid{grid-template-columns:1fr}}
+.address{font-style:normal;line-height:1.5}
+.big-tel{font-family:var(--font-head);font-size:1.9rem;color:var(--brand);text-decoration:none;display:inline-block;margin:.25rem 0}
+.hours{list-style:none;margin:0;padding:0}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;border-bottom:1px solid var(--line)}
+.hours li span:last-child{font-variant-numeric:tabular-nums;text-align:right}
+.social{display:flex;flex-wrap:wrap;gap:.6rem}
+.social a{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .8rem;border:1px solid var(--line);border-radius:3px;text-decoration:none;color:var(--ink);font-weight:600;font-size:.92rem;background:var(--surface)}
+form.enquiry{display:grid;gap:.9rem;background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:1.4rem}
+form.enquiry .row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+@media (max-width:520px){form.enquiry .row{grid-template-columns:1fr}}
+form.enquiry label{display:grid;gap:.3rem;font-weight:600;font-size:.92rem}
+form.enquiry input,form.enquiry textarea{font:inherit;padding:.6rem .7rem;border:1px solid var(--line);border-radius:3px;background:var(--bg);color:var(--ink);width:100%;min-width:0}
+form.enquiry textarea{min-height:110px;resize:vertical}
+.form-note{font-size:.9rem;color:var(--muted);margin:0}
+.form-done{background:var(--brass-soft);color:var(--ink);padding:.9rem 1rem;border-radius:3px;font-size:.95rem}
+
+/* legal */
+.prose{max-width:70ch}
+.prose h2{font-size:1.35rem;margin:1.8rem 0 .5rem}
+.prose ul{padding-left:1.2rem}
+
+/* footer */
+.site-footer{background:var(--surface);border-top:1px solid var(--line);color:var(--muted);font-size:.95rem}
+.site-footer .wrap{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:2rem;padding-block:3rem 2rem}
+.site-footer h4{font-family:var(--font-body);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);margin-bottom:.6rem}
+.site-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
+.site-footer a{color:var(--ink);text-decoration:none}
+.site-footer a:hover{text-decoration:underline}
+.site-footer .brand .name{font-size:1.1rem}
+.site-footer .legal{border-top:1px solid var(--line)}
+.site-footer .legal .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 1.5rem;padding-block:1rem;font-size:.85rem}
+@media (max-width:900px){.site-footer .wrap{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.site-footer .wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="notice"><div class="wrap"><strong>Please note.</strong> Closed 9 to 15 November 2026 and 4 to 10 January 2027.</div></div>
+<header class="site-header"><div class="wrap">
+  <a class="brand" href="index.html" aria-label="Old Oak Tree, home"><span class="name">OLD OAK TREE</span><span class="sub">Freehold public house &middot; Thirsk</span></a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu <span aria-hidden="true">&#9776;</span></button>
+  <nav class="nav" id="nav" aria-label="Main"><a href="menu.html">Menu</a><a href="sunday-lunch.html">Sunday Lunch</a><a href="rooms.html">Rooms</a><a href="private-dining.html">Private Dining</a><a href="race-days.html">Race Days</a><a href="local-area.html">Local Area</a><a href="news.html" aria-current="page">News</a><a href="contact.html">Contact</a><a class="btn call" href="tel:+441845523276"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8z"/></svg>01845 523276</a></nav>
+</div></header>
+<main>
+<section class="band"><div class="wrap">
+  <p class="eyebrow">News and notices</p><h1 style="font-size:clamp(2rem,4vw,2.8rem)">What's on at the Oak Tree</h1>
+  <div class="notices" style="margin:1.5rem 0 0;max-width:70ch">
+    <div class="notice-card"><div class="d">Closures</div><h3>Closed 9 to 15 November 2026 and 4 to 10 January 2027</h3><p>We will be closed from Monday 9 November and re-open on Monday 16 November 2026. We are also closed from Monday 4 January and re-open on Monday 11 January 2027.</p></div>
+    <div class="notice-card"><div class="d">Event</div><h3>Chinese Banquet 2027</h3><p>Limited tables now available for Sunday 31 January 2027 at 8pm. Call 01845 523276 to book.</p></div>
+  </div>
+  <div class="archive" style="max-width:70ch"><p class="eyebrow" style="margin-top:3rem">Archive</p><p class="muted">Every notice we have posted since the site began in 2011, newest first.</p><h2 id="y2025">2025</h2><article class="post"><time datetime="2025-01-01">1 Jan 2025</time><div><h3>Closure November 2026 and January 2027</h3><div class="c"><p>Please note that we will be closed from Monday 9th November and re-open on Monday 16th November 2026</p>
+<p>Additionally closed from Monday 4th January and re-open Monday 11th January 2027</p></div></div></article><article class="post"><time datetime="2025-01-01">1 Jan 2025</time><div><h3>Chinese Banquet 2027</h3><div class="c"><p>Limited tables now available for Sunday 31st January 2027 &#8211; 8pm</p></div></div></article><h2 id="y2024">2024</h2><article class="post"><time datetime="2024-09-23">23 Sep 2024</time><div><h3>Christmas 2024</h3><div class="c"><p>Fully booked for Christmas Day lunch, taking Christmas Party bookings from 2nd to 23rd December</p></div></div></article><article class="post"><time datetime="2024-09-23">23 Sep 2024</time><div><h3>Closed &#8211; Time out!</h3><div class="c"><p>Please note that we will be closed from Monday 11th November 2024, re-opening on Monday 18th November for staff holiday, rest &amp; recuperation.</p></div></div></article><h2 id="y2023">2023</h2><article class="post"><time datetime="2023-12-30">30 Dec 2023</time><div><h3>Chinese Banquet</h3><div class="c"><p>Please note that our Chinese Banquet is now fully booked on Sunday 4th Febuary 2024</p></div></div></article><article class="post"><time datetime="2023-12-30">30 Dec 2023</time><div><h3>Closure</h3><div class="c"><p>Please note that we will be closed from Monday 15th January, re-opening on Monday 22nd January for staff holidays!</p></div></div></article><article class="post"><time datetime="2023-10-10">10 Oct 2023</time><div><h3>Closure &#8211; Time Out!</h3><div class="c"><p>Please note that we will be closed from Monday 16th October 2023, re-opening on Monday 23rd October for staff holiday, rest &amp; recuperation.</p></div></div></article><article class="post"><time datetime="2023-10-10">10 Oct 2023</time><div><h3>Thirsk Races 2024</h3><div class="c"><p>Dates have now been announced for next season and updated</p></div></div></article><h2 id="y2022">2022</h2><article class="post"><time datetime="2022-05-09">9 May 2022</time><div><h3>Camper stopovers</h3><div class="c"><p>We are happy to welcome motorhomes and campervans for FREE stopovers, but you must dine with us and book in advance.</p></div></div></article><h2 id="y2021">2021</h2><article class="post"><time datetime="2021-10-30">30 Oct 2021</time><div><h3>Christmas 2021</h3><div class="c"><p>Fully booked for Christmas Day lunch, taking Christmas Party bookings from 1st to 23rd December</p></div></div></article><article class="post"><time datetime="2021-03-01">1 Mar 2021</time><div><h3>Re-opening 17th May 2021</h3><div class="c"><p>All being well we plan to re-open 17th May 2021 subject to covid restrictions</p></div></div></article><article class="post"><time datetime="2021-03-01">1 Mar 2021</time><div><h3>Take-away&#8217;s during lockdown</h3><div class="c"><p>Available every Wed and Fri 5-7 and Sunday 12-2 &#8211; Regularly updated take-out menu on facebook or instagram page</p></div></div></article><h2 id="y2020">2020</h2><article class="post"><time datetime="2020-10-30">30 Oct 2020</time><div><h3>Christmas 2020</h3><div class="c"><p>Festive menus now available for eat-in or takeaway from 1st to 23rd December.</p>
+<p>Also available to takeaway on Christmas Day (booking essential!)</p></div></div></article><article class="post"><time datetime="2020-07-27">27 Jul 2020</time><div><h3>Eat Out to Help Out</h3><div class="c"><p>Throughout August on Mon, Tue and Wed get 50% off your food and non-alcoholic drinks up to a total value of £10 per person!</p></div></div></article><article class="post"><time datetime="2020-06-29">29 Jun 2020</time><div><h3>Re-opening Sat 4th July</h3><div class="c"><p>We are delighted to announce we will re-open our restaurant and rooms on Saturday 4th July.  We will continue to do takeout meals for those who are not able or confident to dine out just yet!</p></div></div></article><article class="post"><time datetime="2020-04-22">22 Apr 2020</time><div><h3>Take-away menus (COVID-19)</h3><div class="c"><p>Available Wed/Fri night and Sunday lunch, see our Facebook page for current menu updates</p></div></div></article><article class="post"><time datetime="2020-02-01">1 Feb 2020</time><div><h3>Moo and Malbec&#8230;.</h3><div class="c"><p>1st Thursday of every month commencing 6th February 2020</p>
+<p>Steak Meal for 2 with a bottle of Malbec £34.95</p></div></div></article><h2 id="y2019">2019</h2><article class="post"><time datetime="2019-12-14">14 Dec 2019</time><div><h3>Chinese Banquet 2020</h3><div class="c"><p>Our next Chinese Banquet is on Sunday 2nd February 2020</p></div></div></article><h2 id="y2018">2018</h2><article class="post"><time datetime="2018-01-25">25 Jan 2018</time><div><h3>Racing in Thirsk 2020</h3><div class="c"><p>Our website is updated with 2020 fixtures</p></div></div></article><article class="post"><time datetime="2018-01-25">25 Jan 2018</time><div><h3>Chinese Banquet</h3><div class="c"><p>Our annual Chinese Banquet 2019 is on Sunday 18th February, limited availability&#8230;.</p></div></div></article><h2 id="y2017">2017</h2><article class="post"><time datetime="2017-09-10">10 Sep 2017</time><div><h3>Christmas 2017</h3><div class="c"><p>Christmas menus are now out, book early to avoid dissapointment&#8230;</p></div></div></article><article class="post"><time datetime="2017-04-08">8 Apr 2017</time><div><h3>Sri Lanka Theme Night</h3><div class="c"><p>Sunday 25th June 2017 at 8pm</p></div></div></article><article class="post"><time datetime="2017-04-08">8 Apr 2017</time><div><h3>Sri Lanka Fundraising</h3><div class="c"><p>Coffee Morning &#8211; Saturday 29th April 2017 09:30 to 11:30 am</p>
+<p>For those who don&#8217;t know, our daughter Mollie will be spending 6 weeks on a volunteer midwifery project in Sri Lanka this summer.  As this experience is unpaid, she needs to raise funds for flights, programme fee, visa and vaccinations.  Any support you can give will be much appreciated.</p></div></div></article><h2 id="y2016">2016</h2><article class="post"><time datetime="2016-12-07">7 Dec 2016</time><div><h3>Chinese Banquet 2017</h3><div class="c"><p>For the 7th year running, we are now taking bookings for our famous Chinese Banquet on Sunday 29th January at 8pm</p></div></div></article><article class="post"><time datetime="2016-09-27">27 Sep 2016</time><div><h3>Christmas 2016</h3><div class="c"><p>Bookings now been taken during December, book early to avoid disappointment</p></div></div></article><article class="post"><time datetime="2016-09-27">27 Sep 2016</time><div><h3>Thirsk Races 2017</h3><div class="c"><p>Dates have been announced and updated on our website for races in 2017, book your accommodation early to avoid disappointment!</p>
+<p><strong> </strong><em> </em></p>
+<p><strong> </strong><em> </em></p></div></div></article><article class="post"><time datetime="2016-04-01">1 Apr 2016</time><div><h3>Voucher Competition</h3><div class="c"><p>Like and share our post on Facebook during April and be in with a chance of winning a £50 voucher!</p></div></div></article><article class="post"><time datetime="2016-01-14">14 Jan 2016</time><div><h3>Chinese Banquet 2016</h3><div class="c"><p>The year of the Monkey, bookings now been taken for the evening of Sunday 13th March</p></div></div></article><article class="post"><time datetime="2016-01-14">14 Jan 2016</time><div><h3>Mothers Day 2016</h3><div class="c"><p>Don&#8217;t forget your booking for Mothers Day, this year its on the 6th March&#8230;</p></div></div></article><h2 id="y2015">2015</h2><article class="post"><time datetime="2015-11-18">18 Nov 2015</time><div><h3>Curry Night</h3><div class="c"><p>Sunday 29th November 2015 &#8211; £12.50 per head &#8211; Bookings required</p></div></div></article><article class="post"><time datetime="2015-09-06">6 Sep 2015</time><div><h3>Thirsk Races 2016</h3><div class="c"><p>Dates have been announced and updated on our website for races in 2016, book your accommodation early to avoid disappointment!</p>
+<p><strong> </strong><em> </em></p></div></div></article><article class="post"><time datetime="2015-05-15">15 May 2015</time><div><h3>South Kilvington Scarecrow Week</h3><div class="c"><p>The village scarecrow week starts Monday 6th July 2015</p></div></div></article><article class="post"><time datetime="2015-05-15">15 May 2015</time><div><h3>Fathers Day</h3><div class="c"><p>Don&#8217;t forget the Dads on Sunday 21st June, treat him to a traditional Sunday lunch&#8230;</p></div></div></article><article class="post"><time datetime="2015-01-05">5 Jan 2015</time><div><h3>Chinese Banquet 2015</h3><div class="c"><p>Celebrate the year of the sheep &#8211; Sunday 1st March 2015 at 8pm</p></div></div></article><h2 id="y2014">2014</h2><article class="post"><time datetime="2014-11-10">10 Nov 2014</time><div><h3>Thirsk Races 2015</h3><div class="c"><p>Dates have been announced and updated on our website for races in 2015, book your accommodation early to avoid disappointment!</p></div></div></article><article class="post"><time datetime="2014-09-22">22 Sep 2014</time><div><h3>Mexican Fiesta&#8230;.</h3><div class="c"><p>On Sunday 9th November we are holding a Mexican Fiesta night, food served at 8 pm £16.50 per person, limited availability</p></div></div></article><article class="post"><time datetime="2014-07-21">21 Jul 2014</time><div><h3>Sunday night special</h3><div class="c"><p>Book a double room on a Sunday night for only £99&#8230;&#8230;..</p>
+<p>Room available from 12 o&#8217;clock, full Yorkshire breakfast and dinner (to the value of £30) with a free bottle of house wine.  Direct bookings only on 01845 523276</p></div></div></article><article class="post"><time datetime="2014-02-13">13 Feb 2014</time><div><h3>Mother&#8217;s Day Lunch</h3><div class="c"><p>This year Mothering Sunday is on 30th March.  Book your table early to avoid disapointment.  Did you know &#8211; British summer time begins on this date too&#8230;&#8230;..</p></div></div></article><article class="post"><time datetime="2014-02-03">3 Feb 2014</time><div><h3>♥St Valentine&#8217;s 14th February♥</h3><div class="c"><p>Treat your loved one to a romantic meal this Valentines.  Normal menu&#8230; Normal prices&#8230;..</p></div></div></article><article class="post"><time datetime="2014-01-06">6 Jan 2014</time><div><h3>Chinese Banquet 2014</h3><div class="c"><p>This years Chinese Banquet is on Sunday 2nd February, £16.50 per person, limited availability</p></div></div></article><h2 id="y2013">2013</h2><article class="post"><time datetime="2013-10-15">15 Oct 2013</time><div><h3>Thirsk Races 2014</h3><div class="c"><p>A list of Thirsk race fixtures for 2014 have just been updated on our web-site, book accommodation early to avoid disapointment.</p></div></div></article><article class="post"><time datetime="2013-08-29">29 Aug 2013</time><div><h3>Christmas is coming&#8230;.</h3><div class="c"><p>Christmas menus already in production &#8211; how time flies!</p></div></div></article><article class="post"><time datetime="2013-08-29">29 Aug 2013</time><div><h3>What a fabulous summer&#8230;..</h3><div class="c"><p>What a fabulous summer we are having, why not come and relax with a drink in our beautiful south facing beer garden, possibly the best in Yorkshire!</p></div></div></article><article class="post"><time datetime="2013-05-22">22 May 2013</time><div><h3>Thursday 6th June is a new fixture for Thirsk Racecourse</h3><div class="c"><p>Thirsk Racecourse is to stage an additional race meeting on Thursday 6th June 2013, which has just been transferred to the North Yorkshire venue from Ayr.  The first race will be at 2.10pm and further details on Thirsk Races can be found at <a target="_blank" rel="noopener" rel="nofollow" href="http://thirskracecourse.us6.list-manage.com/track/click?u=b8de0094e3&amp;id=f1be981b8d&amp;e=1b2a405b20" target="_blank">www.thirskracecourse.net</a></p></div></div></article><article class="post"><time datetime="2013-05-08">8 May 2013</time><div><h3>Father&#8217;s Day</h3><div class="c"><p>Father&#8217;s day falls on Sunday 16th June, same menu, same prices&#8230;.  Treat Dad to a Sunday roast?</p></div></div></article><article class="post"><time datetime="2013-02-26">26 Feb 2013</time><div><h3>Mother&#8217;s Day lunch 2013</h3><div class="c"><p>No separate sittings or inflated prices, just a normal but very busy Sunday lunch with a little something for the Mum&#8217;s&#8230;. Best book, not many places left!</p></div></div></article><article class="post"><time datetime="2013-01-11">11 Jan 2013</time><div><h3>Chinese Banquet</h3><div class="c"><p>Happy New Year everyone!  Fancy a fun night out to celebrate the year of the Snake &#8211; Sunday 10th February 2013 &#8211; £16.50 per person.  Bookings now been taken</p></div></div></article><h2 id="y2012">2012</h2><article class="post"><time datetime="2012-08-23">23 Aug 2012</time><div><h3>En-suite accommodation</h3><div class="c"><p>Hooray!  Two of our five en-suite rooms are now ready.  Please watch this space for further updates&#8230;</p></div></div></article><article class="post"><time datetime="2012-08-23">23 Aug 2012</time><div><h3>Christmas 2012</h3><div class="c"><p>Our Christmas menus have gone to print and will be added to the web-site shortly</p></div></div></article><article class="post"><time datetime="2012-05-07">7 May 2012</time><div><h3>Queens Diamond Jubilee</h3><div class="c"><p>Our Hogroast Charity Event for the Jubilee on Monday 4th June raised £1923.80.   A huge thank you to all involved.</p></div></div></article><article class="post"><time datetime="2012-03-13">13 Mar 2012</time><div><h3>En-suite Accommodation</h3><div class="c"><p>Building is now underway for our five en-suite letting rooms which will be ready by the end of summer.</p></div></div></article><article class="post"><time datetime="2012-03-13">13 Mar 2012</time><div><h3>Mothers Day Lunch</h3><div class="c"><p>Already full on the 12:00 and 2:30 sittings, spaces available from 5:00 pm</p></div></div></article><h2 id="y2011">2011</h2><article class="post"><time datetime="2011-10-03">3 Oct 2011</time><div><h3>Theme Nights</h3><div class="c"><p>Sunday 6th November 2011 &#8211; Spanish Fiesta</p>
+<p>Sunday 22nd January 2012 &#8211; Chinese Banquet</p>
+<p>Limited availability &#8211;  £16.50 per head</p></div></div></article><article class="post"><time datetime="2011-06-13">13 Jun 2011</time><div><h3>Christmas 2011</h3><div class="c"><p>Festive celebrations include 3 course lunch or dinner with coffee and mince pies.  Menu&#8217;s are available on the right hand side of our home page.  For all enquiries or to book, please call on 01845 523276.</p></div></div></article><article class="post"><time datetime="2011-05-03">3 May 2011</time><div><h3>Forthcoming dates</h3><div class="c"><p>Monday 30th May &#8211; Bank Holiday &#8211; open all day</p>
+<p>Saturday 11th June &#8211; South Kilvington School Spring Fair &amp; Duck Race 3 pm quack off!</p>
+<p>Sunday 19th June &#8211; Fathers Day</p></div></div></article><article class="post"><time datetime="2011-04-07">7 Apr 2011</time><div><h3>D&#038;S Restaurant Review</h3><div class="c"><p>On Friday 11th March, the Darlington &amp; Stockton Times issued their review of our pub.  <a target="_blank" rel="noopener" title="Old Oak Tree review" href="http://www.darlingtonandstocktontimes.co.uk/leisure/8956508.The_Old_Oak_Tree__South_Kilvington__Thirsk/" target="_blank">Click here to see the review.</a></p></div></div></article><article class="post"><time datetime="2011-04-05">5 Apr 2011</time><div><h3>Easter and Bank Holidays</h3><div class="c"><p>Good Friday 22nd April &#8211; open as usual</p>
+<p>Easter Sunday 24th April &#8211; open all day</p>
+<p>Easter Monday 25th April &#8211; open all day</p>
+<p>Royal Wedding 29th April &#8211; open as usual</p>
+<p>Bank Holiday Monday 2nd May &#8211; open all day</p></div></div></article><article class="post"><time datetime="2011-03-08">8 Mar 2011</time><div><h3>Hambleton Ales</h3><div class="c"><p>Microbrewery near Thirsk, North Yorkshire producing bottled and cask conditioned ales.</p></div></div></article><article class="post"><time datetime="2011-03-06">6 Mar 2011</time><div><h3>Fryday is Fish Day!</h3><div class="c"><p class="large-txt-18px maroon-txt">Beer battered haddock, homemade chips and mushy peas £7.50</p></div></div></article><article class="post"><time datetime="2011-03-06">6 Mar 2011</time><div><h3>Mothers Day</h3><div class="c"><p>Wow!  Both sittings for mothers day lunch are now fully booked.  We are open as normal in the evening from 5:30 pm</p></div></div></article><article class="post"><time datetime="2011-03-06">6 Mar 2011</time><div><h3>Mouseman Visitor Center</h3><div class="c"><p>The new Mouseman Visitor Centre will take you on an amazing journey through the life and times of the Mouseman from humble beginnings to furniture legend. With a tearoom and giftshop stocked with a range of handmade Mouseman items.</p></div></div></article><article class="post"><time datetime="2011-03-05">5 Mar 2011</time><div><h3>The World of James Herriot</h3><div class="c"><p>One of the country&#8217;s premier attractions. The World of James Herriot pays a unique tribute to the life and times of the author Alf Wight, otherwise known as James Herriot.</p></div></div></article><article class="post"><time datetime="2011-03-05">5 Mar 2011</time><div><h3>Monk Park Farm</h3><div class="c"><p>Children&#8217;s Farm and Farm Visitor Centre at Bagby, Thirsk. With a variety of animals from sheep &amp; horses to wallabies and alpacas. There is also an adventure playground, tea room &amp; giftshop.</p></div></div></article><article class="post"><time datetime="2011-03-05">5 Mar 2011</time><div><h3>Thirsk Racecourse</h3><div class="c"><p>Country racing at its best. With high quality racing, good facilities and attractive surroundings.</p></div></div></article></div>
+</div></section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div><a class="brand" href="index.html"><span class="name">OLD OAK TREE</span><span class="sub">Freehold public house</span></a>
+      <p style="margin-top:1rem">Nick, Laurette, Mollie and Elliot welcome you to our freehouse with home-cooked food and real ales.</p>
+      <p>Old Oak Tree, South Kilvington, Thirsk, North Yorkshire YO7 2NL</p></div>
+    <div><h4>Food served</h4><ul><li>Mon to Sat: 12 to 2pm, 5 to 8.30pm</li><li>Sunday: 12 to 7.30pm</li><li>Sunday lunch: 12 to 2.30pm</li></ul></div>
+    <div><h4>Bookings</h4><ul><li><a href="tel:+441845523276">01845 523276</a></li><li><a href="mailto:info@oldoaktreethirsk.co.uk">info@oldoaktreethirsk.co.uk</a></li><li><a href="https://via.eviivo.com/OldYO72NL" target="_blank" rel="noopener">Book a room online</a></li></ul></div>
+    <div><h4>Find us</h4><ul><li><a href="menu.html">Menu</a></li><li><a href="rooms.html">Rooms</a></li><li><a href="race-days.html">Race days</a></li><li><a href="news.html">News</a></li><li><a href="https://www.facebook.com/pages/Old-Oak-Tree/169152219800632" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.tripadvisor.co.uk/Restaurant_Review-g499612-d720778-Reviews-The_Old_Oak_Tree-Thirsk_North_Yorkshire_England.html" target="_blank" rel="noopener">TripAdvisor</a></li></ul></div>
+  </div>
+  <div class="legal"><div class="wrap"><span>&copy; 2026 Old Oak Tree. All rights reserved.</span><span><a href="privacy.html">Privacy policy</a> &middot; <a href="terms.html">Terms &amp; conditions</a></span></div></div>
+</footer>
+<script>
+(function(){
+  var t=document.querySelector('.menu-toggle'),n=document.querySelector('.nav');
+  if(t&&n){t.addEventListener('click',function(){var o=n.classList.toggle('open');t.setAttribute('aria-expanded',o?'true':'false');});}
+  var f=document.querySelector('form.enquiry');
+  if(f){f.addEventListener('submit',function(e){e.preventDefault();var d=document.getElementById('form-done');if(d){d.hidden=false;d.focus();}f.querySelector('button').disabled=true;});}
+})();
+</script>
+</body>
+</html>
